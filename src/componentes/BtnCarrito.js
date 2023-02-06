@@ -8,7 +8,7 @@ function BtnCarrito() {
     <div className="d-flex justify-content-end sticky-top">
       <Link className="btn btn-danger btn-lg shadow rounded-pill" to="/carrito">
         <i className="bi bi-cart4"></i>
-        <span class="badge text-bg-light rounded-circle">
+        <span className="badge text-bg-light rounded-circle">
           {cantidadTotal() || ""}
         </span>
       </Link>
