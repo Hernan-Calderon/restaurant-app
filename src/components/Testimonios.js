@@ -1,7 +1,7 @@
 import React from "react";
 
-import cliente1 from "../imagenes/cliente1.jpg";
-import cliente2 from "../imagenes/cliente2.jpg";
+import cliente1 from "../images/cliente1.jpg";
+import cliente2 from "../images/cliente2.jpg";
 
 function Testimonios() {
   return (

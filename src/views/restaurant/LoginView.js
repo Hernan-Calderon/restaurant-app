@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import firebaseApp from "../firebase/credenciales";
+import firebaseApp from "../../firebase/credenciales";
 import { useNavigate } from "react-router-dom";
 import {
   getAuth,
@@ -10,7 +10,7 @@ import { getFirestore, doc, setDoc } from "firebase/firestore";
 
 const auth = getAuth(firebaseApp);
 
-function Login() {
+function LoginView() {
   const db = getFirestore(firebaseApp);
   const [estaRegistrando, setEstaRegistrando] = useState(false);
   const navigate = useNavigate();
@@ -109,4 +109,4 @@ function Login() {
   );
 }
 
-export default Login;
+export default LoginView;

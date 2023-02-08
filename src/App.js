@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
-import Home from "./componentes/Home";
-import RestauranteApp from "./componentes/RestauranteApp";
+import HomeView from "./views/HomeView";
+import RestaurantView from "./views/restaurant/RestaurantView";
 import CartProvider from "./context/RestauranteCartContext";
 
 import firebaseApp from "./firebase/credenciales";
@@ -44,7 +44,7 @@ function App() {
   return (
     <>
       <CartProvider>
-        {user ? <Home user={user} /> : <RestauranteApp user={user} />}
+        {user ? <HomeView user={user} /> : <RestaurantView user={user} />}
       </CartProvider>
     </>
   );

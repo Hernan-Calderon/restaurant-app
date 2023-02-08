@@ -1,11 +1,11 @@
 import { Link, useNavigate } from "react-router-dom";
-import { useCartContext } from "../context/RestauranteCartContext";
-import ItemCart from "./ItemCart";
-import Titulo from "./Titulo";
+import { useCartContext } from "../../context/RestauranteCartContext";
+import ItemCart from "../../components/ItemCart";
+import Titulo from "../../components/Titulo";
 
-import triste from "../imagenes/triste.png";
+import triste from "../../images/triste.png";
 
-function Cart({ user }) {
+function CartView({ user }) {
   const { cart, precioTotal, cleanCart } = useCartContext();
   const isDisabled = user && user.rol === "user" ? false : true;
   const navigate = useNavigate();
@@ -79,4 +79,4 @@ function Cart({ user }) {
   );
 }
 
-export default Cart;
+export default CartView;

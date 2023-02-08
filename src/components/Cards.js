@@ -1,8 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-import menu from "../imagenes/menu.png";
-import promociones from "../imagenes/promociones.png";
+import menu from "../images/menu.png";
+import promociones from "../images/promociones.png";
 
 function Cards() {
   return (

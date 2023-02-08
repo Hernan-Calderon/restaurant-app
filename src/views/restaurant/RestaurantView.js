@@ -1,28 +1,28 @@
 import { BrowserRouter, Route, Routes, NavLink, Link } from "react-router-dom";
 
-import "../styles/global.css";
+import "../../styles/global.css";
 
-import firebaseApp from "../firebase/credenciales";
+import firebaseApp from "../../firebase/credenciales";
 import { getAuth, signOut } from "firebase/auth";
 
-import { useCartContext } from "../context/RestauranteCartContext";
-import RestauranteBienvenida from "./RestauranteBienvenida";
-import RestauranteMenu from "./RestauranteMenu";
-import RestaurantePedidos from "./RestaurantePedidos";
-import RestaurantePromo from "./RestaurantePromo";
-import Cart from "./Cart";
-import ConfirmarPedido from "./ConfirmarPedido";
-import Login from "./Login";
+import { useCartContext } from "../../context/RestauranteCartContext";
+import WelcomeView from "./WelcomeView";
+import RestauranteMenu from "../../components/RestauranteMenu";
+import OrdersView from "./OrdersView";
+import RestaurantePromo from "../../components/RestaurantePromo";
+import CartView from "./CartView";
+import ConfirmarPedido from "../../components/ConfirmarPedido";
+import LoginView from "./LoginView";
 
-import Titulo from "./Titulo";
+import Titulo from "../../components/Titulo";
 
-import logo from "../imagenes/TuLoPidesLogo.png";
-import logo_1 from "../imagenes/logo_1.png";
-import logoRestaurante from "../imagenes/logo_restaurante.png";
+import logo from "../../images/TuLoPidesLogo.png";
+import logo_1 from "../../images/logo_1.png";
+import logoRestaurante from "../../images/logo_restaurante.png";
 
 const auth = getAuth(firebaseApp);
 
-function RestauranteApp({ user }) {
+function RestaurantView({ user }) {
   const { cleanCart } = useCartContext();
 
   function cerrarSesion() {
@@ -128,15 +128,15 @@ function RestauranteApp({ user }) {
       </Link>
 
       <Routes>
-        <Route path="/" element={<RestauranteBienvenida user={user} />} />
-        <Route path="inicio" element={<RestauranteBienvenida user={user} />} />
+        <Route path="/" element={<WelcomeView user={user} />} />
+        <Route path="inicio" element={<WelcomeView user={user} />} />
         <Route path="menu" element={<RestauranteMenu user={user} />} />
-        <Route path="pedidos" element={<RestaurantePedidos user={user} />} />
+        <Route path="pedidos" element={<OrdersView user={user} />} />
         <Route path="promociones" element={<RestaurantePromo user={user} />} />
 
-        <Route path="carrito" element={<Cart user={user} />} />
+        <Route path="carrito" element={<CartView user={user} />} />
         <Route path="confirmar" element={<ConfirmarPedido user={user} />} />
-        <Route path="login" element={<Login />} />
+        <Route path="login" element={<LoginView />} />
       </Routes>
 
       <footer className="bg-danger text-white">
@@ -197,4 +197,4 @@ function RestauranteApp({ user }) {
   );
 }
 
-export default RestauranteApp;
+export default RestaurantView;

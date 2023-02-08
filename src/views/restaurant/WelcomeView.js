@@ -1,14 +1,14 @@
 import React from "react";
 
-import Testimonios from "./Testimonios";
-import Cards from "./Cards";
-import CardsUser from "./CardsUser";
+import Testimonios from "../../components/Testimonios";
+import Cards from "../../components/Cards";
+import CardsUser from "../../components/CardsUser";
 
-import food1 from "../imagenes/food1.jpg";
-import food2 from "../imagenes/food2.jpg";
-import food3 from "../imagenes/food3.jpg";
+import food1 from "../../images/food1.jpg";
+import food2 from "../../images/food2.jpg";
+import food3 from "../../images/food3.jpg";
 
-function RestauranteBienvenida({ user }) {
+function WelcomeView({ user }) {
   return (
     <div className="container">
       <h1 style={{ color: "#491632" }}>Bienvenid@</h1>
@@ -85,4 +85,4 @@ function RestauranteBienvenida({ user }) {
   );
 }
 
-export default RestauranteBienvenida;
+export default WelcomeView;

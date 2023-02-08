@@ -1,10 +1,10 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-import menu from "../imagenes/menu.png";
-import promociones from "../imagenes/promociones.png";
-import pedidos from "../imagenes/pedidos.png";
-import carrito from "../imagenes/carrito.png";
+import menu from "../images/menu.png";
+import promociones from "../images/promociones.png";
+import pedidos from "../images/pedidos.png";
+import carrito from "../images/carrito.png";
 
 function CardsUser() {
   return (

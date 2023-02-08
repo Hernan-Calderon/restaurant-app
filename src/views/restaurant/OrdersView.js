@@ -1,7 +1,7 @@
 import { useEffect, useState, useMemo } from "react";
 import { Link } from "react-router-dom";
 
-import firebaseApp from "../firebase/credenciales";
+import firebaseApp from "../../firebase/credenciales";
 import {
   getFirestore,
   collection,
@@ -10,9 +10,9 @@ import {
   where,
 } from "firebase/firestore";
 
-import ItemPedido from "./ItemPedido";
+import ItemPedido from "../../components/ItemPedido";
 
-function RestaurantePedidos({ user }) {
+function OrdersView({ user }) {
   const [pedidos, setPedidos] = useState([]);
 
   const idUsuario = useMemo(() => {
@@ -77,4 +77,4 @@ function RestaurantePedidos({ user }) {
   );
 }
 
-export default RestaurantePedidos;
+export default OrdersView;

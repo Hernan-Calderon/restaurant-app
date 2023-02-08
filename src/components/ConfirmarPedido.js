@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { useCartContext } from "../context/RestauranteCartContext";
 import Titulo from "./Titulo";
 
-import triste from "../imagenes/triste.png";
+import triste from "../images/triste.png";
 
 import firebaseApp from "../firebase/credenciales";
 import { getFirestore, collection, addDoc } from "firebase/firestore";
