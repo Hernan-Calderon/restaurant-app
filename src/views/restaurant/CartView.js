@@ -1,4 +1,6 @@
 import { Link, useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
+
 import { useCartContext } from "../../context/RestauranteCartContext";
 import ItemCart from "../../components/ItemCart";
 import Titulo from "../../components/Titulo";
@@ -25,19 +27,18 @@ function CartView({ user }) {
     );
   }
 
+  if (isDisabled) {
+    Swal.fire(
+      "Información",
+      "¡Para confirmar su pedido debe iniciar sesión o registrarse!",
+      "info"
+    );
+  }
   return (
     <div className="container">
       <h1>
         <i className="bi bi-cart4"></i>Carrito
       </h1>
-      <br></br>
-      <div style={{ background: "#dc3545", color: "white" }}>
-        {isDisabled ? (
-          <h3>¡Para confirmar su pedido debe iniciar sesión o registrarse!</h3>
-        ) : (
-          <></>
-        )}
-      </div>
       <br></br>
       <table className="table table-borderless">
         <thead>

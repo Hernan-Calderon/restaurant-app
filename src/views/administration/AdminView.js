@@ -1,4 +1,5 @@
 import { useState } from "react";
+import Swal from "sweetalert2";
 
 import Productos from "../../components/Productos";
 import Titulo from "../../components/Titulo";
@@ -44,11 +45,10 @@ function AdminView({ user }) {
         tipo: tipo,
         url_imagen: carga[0],
       });
-
-      alert("El archivo se ha subido con éxito.");
+      Swal.fire("Éxito", "El archivo se ha subido con éxito.", "success");
       window.location.reload();
     } catch (error) {
-      alert(error.message);
+      Swal.fire("Error", error.message.slice(10), "error");
     }
   };
 

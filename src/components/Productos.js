@@ -12,29 +12,31 @@ import {
 } from "firebase/firestore";
 
 function Productos() {
-  const db = getFirestore(firebaseApp);
-
   const [docPlatos, setDocPlatos] = useState([]);
   const [docSushi, setDocSushi] = useState([]);
   const [docBebidas, setDocBebidas] = useState([]);
 
-  const getDocumentos = async () => {
-    try {
-      let q = query(collection(db, "productos"), where("tipo", "==", "plato"));
-      let querySnapshot = await getDocs(q);
-      setDocPlatos(querySnapshot);
-      q = query(collection(db, "productos"), where("tipo", "==", "sushi"));
-      querySnapshot = await getDocs(q);
-      setDocSushi(querySnapshot);
-      q = query(collection(db, "productos"), where("tipo", "==", "bebida"));
-      querySnapshot = await getDocs(q);
-      setDocBebidas(querySnapshot);
-    } catch (error) {
-      console.log(error.message);
-    }
-  };
-
   useEffect(() => {
+    const db = getFirestore(firebaseApp);
+    const getDocumentos = async () => {
+      try {
+        let q = query(
+          collection(db, "productos"),
+          where("tipo", "==", "plato")
+        );
+        let querySnapshot = await getDocs(q);
+        setDocPlatos(querySnapshot);
+        q = query(collection(db, "productos"), where("tipo", "==", "sushi"));
+        querySnapshot = await getDocs(q);
+        setDocSushi(querySnapshot);
+        q = query(collection(db, "productos"), where("tipo", "==", "bebida"));
+        querySnapshot = await getDocs(q);
+        setDocBebidas(querySnapshot);
+      } catch (error) {
+        console.log(error.message);
+      }
+    };
+
     getDocumentos();
   }, []);
 

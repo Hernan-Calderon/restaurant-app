@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import Swal from "sweetalert2";
+
 import { useCartContext } from "../context/RestauranteCartContext";
 import Titulo from "./Titulo";
-
 import triste from "../images/triste.png";
-
 import firebaseApp from "../firebase/credenciales";
 import { getFirestore, collection, addDoc } from "firebase/firestore";
 
@@ -44,14 +44,20 @@ function ConfirmarPedido({ user }) {
       const coleccion = collection(db, "pedidos");
       try {
         await addDoc(coleccion, pedido);
-        alert("¡Se realizó el pedido con éxito!");
+        Swal.fire({
+          title: "Éxito",
+          text: "¡Se realizó el pedido con éxito!",
+          icon: "success",
+          confirmButtonColor: "#491632",
+          iconColor: "#dc3545",
+        });
         cleanCart();
         setRedireccionar(true);
       } catch (error) {
-        alert(error.message);
+        Swal.fire("Error", error.message.slice(10), "error");
       }
     } else {
-      alert("¡Código inválido!");
+      Swal.fire("Advertencia", "¡Código inválido!", "warning");
     }
   }
 

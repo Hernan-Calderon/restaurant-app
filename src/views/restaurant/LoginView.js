@@ -7,6 +7,7 @@ import {
   signInWithEmailAndPassword,
 } from "firebase/auth";
 import { getFirestore, doc, setDoc } from "firebase/firestore";
+import Swal from "sweetalert2";
 
 const auth = getAuth(firebaseApp);
 
@@ -38,14 +39,14 @@ function LoginView() {
         await registrar(email, password, rol);
         navigate("/inicio");
       } catch (error) {
-        alert(error.message);
+        Swal.fire("Error", error.message.slice(10), "error");
       }
     } else {
       try {
         await signInWithEmailAndPassword(auth, email, password);
         navigate("/inicio");
       } catch (error) {
-        alert(error.message);
+        Swal.fire("Error", error.message.slice(10), "error");
       }
     }
   }
@@ -68,12 +69,22 @@ function LoginView() {
           <form onSubmit={submitHandler}>
             <div className="form-group">
               <label htmlFor="email">Correo Electrónico:</label>
-              <input type="email" className="form-control" id="email" />
+              <input
+                required
+                type="email"
+                className="form-control"
+                id="email"
+              />
             </div>
 
             <div className="form-group">
               <label htmlFor="password">Contraseña:</label>
-              <input type="password" className="form-control" id="password" />
+              <input
+                required
+                type="password"
+                className="form-control"
+                id="password"
+              />
             </div>
             <br></br>
             <div className="d-grid">
