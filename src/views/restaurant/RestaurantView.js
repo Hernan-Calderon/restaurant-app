@@ -7,9 +7,8 @@ import { getAuth, signOut } from "firebase/auth";
 
 import { useCartContext } from "../../context/RestauranteCartContext";
 import WelcomeView from "./WelcomeView";
-import RestauranteMenu from "../../components/RestauranteMenu";
+import MenuView from "./MenuView";
 import OrdersView from "./OrdersView";
-import RestaurantePromo from "../../components/RestaurantePromo";
 import CartView from "./CartView";
 import ConfirmarPedido from "../../components/ConfirmarPedido";
 import LoginView from "./LoginView";
@@ -76,48 +75,40 @@ function RestaurantView({ user }) {
                     Menú
                   </NavLink>
                 </li>
-                <div>
-                  {user && user.rol === "user" ? (
-                    <li className="nav-item">
-                      <NavLink className="nav-link" to="pedidos">
-                        Pedidos
-                      </NavLink>
-                    </li>
-                  ) : (
-                    <></>
-                  )}
-                </div>
 
-                <li className="nav-item">
-                  <NavLink className="nav-link" to="promociones">
-                    Promociones
-                  </NavLink>
-                </li>
+                {user && user.rol === "user" ? (
+                  <li className="nav-item">
+                    <NavLink className="nav-link" to="pedidos">
+                      Pedidos
+                    </NavLink>
+                  </li>
+                ) : (
+                  <></>
+                )}
 
                 <li className="nav-item">
                   <NavLink className="nav-link" to="carrito">
                     Carrito
                   </NavLink>
                 </li>
-                <div>
-                  {user ? (
-                    <li className="nav-item m-1">
-                      <NavLink
-                        className="btn btn-sm sesion"
-                        to="inicio"
-                        onClick={() => cerrarSesion()}
-                      >
-                        Cerrar Sesión
-                      </NavLink>
-                    </li>
-                  ) : (
-                    <li className="nav-item m-1">
-                      <NavLink className="btn btn-sm sesion" to="login">
-                        Iniciar Sesión
-                      </NavLink>
-                    </li>
-                  )}
-                </div>
+
+                {user ? (
+                  <li className="nav-item m-1">
+                    <NavLink
+                      className="btn btn-sm sesion"
+                      to="inicio"
+                      onClick={() => cerrarSesion()}
+                    >
+                      Cerrar Sesión
+                    </NavLink>
+                  </li>
+                ) : (
+                  <li className="nav-item m-1">
+                    <NavLink className="btn btn-sm sesion" to="ingresar">
+                      Ingresar
+                    </NavLink>
+                  </li>
+                )}
               </ul>
             </div>
           </div>
@@ -130,13 +121,11 @@ function RestaurantView({ user }) {
       <Routes>
         <Route path="/" element={<WelcomeView user={user} />} />
         <Route path="inicio" element={<WelcomeView user={user} />} />
-        <Route path="menu" element={<RestauranteMenu user={user} />} />
+        <Route path="menu" element={<MenuView user={user} />} />
         <Route path="pedidos" element={<OrdersView user={user} />} />
-        <Route path="promociones" element={<RestaurantePromo user={user} />} />
-
         <Route path="carrito" element={<CartView user={user} />} />
         <Route path="confirmar" element={<ConfirmarPedido user={user} />} />
-        <Route path="login" element={<LoginView />} />
+        <Route path="ingresar" element={<LoginView />} />
       </Routes>
 
       <footer className="bg-danger text-white">
@@ -159,21 +148,20 @@ function RestaurantView({ user }) {
                   Menú
                 </Link>
               </p>
-              <div>
-                {user && user.rol === "user" ? (
-                  <p className="mb-0">
-                    <Link className="nav-link" to="pedidos">
-                      Pedidos
-                    </Link>
-                  </p>
-                ) : (
-                  <></>
-                )}
-              </div>
+
+              {user && user.rol === "user" ? (
+                <p className="mb-0">
+                  <Link className="nav-link" to="pedidos">
+                    Pedidos
+                  </Link>
+                </p>
+              ) : (
+                <></>
+              )}
 
               <p className="mb-0">
-                <Link className="nav-link" to="promociones">
-                  Promociones
+                <Link className="nav-link" to="carrito">
+                  Carrito
                 </Link>
               </p>
             </div>

@@ -4,7 +4,14 @@ import Swal from "sweetalert2";
 
 import { useCartContext } from "../context/RestauranteCartContext";
 
-function Producto({ identificador, nombre, descripcion, precio, urlImagen }) {
+function Producto({
+  identificador,
+  nombre,
+  descripcion,
+  precio,
+  urlImagen,
+  user,
+}) {
   const { addProduct } = useCartContext();
 
   const db = getFirestore(firebaseApp);
@@ -66,35 +73,43 @@ function Producto({ identificador, nombre, descripcion, precio, urlImagen }) {
             <strong>$ {precio}</strong>
           </span>
           <br></br>
+          {user && user.rol === "admin_tienda" ? (
+            <div className="d-grid gap-2 col-6">
+              <button className="btn btn-primary">Actualizar</button>
+              <button className="btn btn-danger">Eliminar</button>
+            </div>
+          ) : (
+            <div>
+              <div className="input-group">
+                <button
+                  className="input-group-btn btn btn-outline-danger"
+                  onClick={() => disminuir(identificador)}
+                >
+                  <i className="bi bi-dash-lg"></i>
+                </button>
+                <input
+                  type="text"
+                  id={identificador}
+                  defaultValue="1"
+                  className="form-control input-number"
+                ></input>
+                <button
+                  className="input-group-btn btn btn-outline-danger"
+                  onClick={() => incrementar(identificador)}
+                >
+                  <i className="bi bi-plus-lg"></i>
+                </button>
+              </div>
 
-          <div className="input-group">
-            <button
-              className="input-group-btn btn btn-outline-danger"
-              onClick={() => disminuir(identificador)}
-            >
-              <i className="bi bi-dash-lg"></i>
-            </button>
-            <input
-              type="text"
-              id={identificador}
-              defaultValue="1"
-              className="form-control input-number"
-            ></input>
-            <button
-              className="input-group-btn btn btn-outline-danger"
-              onClick={() => incrementar(identificador)}
-            >
-              <i className="bi bi-plus-lg"></i>
-            </button>
-          </div>
-
-          <br></br>
-          <button
-            className="btn btn-danger rounded-pill"
-            onClick={() => agregarProducto(identificador)}
-          >
-            <i className="bi bi-cart4"></i>Agregar
-          </button>
+              <br></br>
+              <button
+                className="btn btn-danger rounded-pill"
+                onClick={() => agregarProducto(identificador)}
+              >
+                <i className="bi bi-cart4"></i>Agregar
+              </button>
+            </div>
+          )}
         </div>
         <div className="col-6">
           <p>{descripcion}</p>

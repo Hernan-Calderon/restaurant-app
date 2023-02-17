@@ -2,7 +2,6 @@ import React from "react";
 
 import Testimonios from "../../components/Testimonios";
 import Cards from "../../components/Cards";
-import CardsUser from "../../components/CardsUser";
 
 import food1 from "../../images/food1.jpg";
 import food2 from "../../images/food2.jpg";
@@ -77,7 +76,7 @@ function WelcomeView({ user }) {
         </button>
       </div>
       <br></br>
-      <div>{user && user.rol === "user" ? <CardsUser /> : <Cards />}</div>
+      <Cards user={user} />
       <br></br>
       <Testimonios />
       <br></br>
