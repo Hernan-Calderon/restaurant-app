@@ -1,12 +1,13 @@
-import React from 'react'
+import React from "react";
 
-function DetalleCocina({ nombre, cantidad }) {
+function DetalleCocina({ nombre, cantidad, nota }) {
   return (
-    <tr style={{ background: '#FEEFEC' }}>
-      <th scope="row">{nombre}</th>      
-      <td>{cantidad}</td>      
+    <tr style={{ background: "#FEEFEC" }}>
+      <th scope="row">{nombre}</th>
+      <td>{cantidad}</td>
+      <td>{nota}</td>
     </tr>
-  )
+  );
 }
 
-export default DetalleCocina
+export default DetalleCocina;

@@ -12,7 +12,7 @@ import {
 import Titulo from "../../components/Titulo";
 import ItemPedidoCocina from "../../components/ItemPedidoCocina";
 
-import cc from "../../images/cc.png";
+import logoRestaurante from "../../images/logo_restaurante.png";
 
 const auth = getAuth(firebaseApp);
 
@@ -47,6 +47,7 @@ function KitchenView({ user }) {
         fecha={doc.data()["fecha"]}
         hora={doc.data()["hora"]}
         estado={doc.data()["estado"]}
+        mesa={doc.data()["mesa"]}
         items={doc.data()["items"]}
       />
     );
@@ -64,7 +65,7 @@ function KitchenView({ user }) {
         </button>
       </div>
 
-      <Titulo imagenTitulo={cc} />
+      <Titulo imagenTitulo={logoRestaurante} />
       <h1>Cocina Restaurante</h1>
       <div className="row">{items}</div>
     </div>

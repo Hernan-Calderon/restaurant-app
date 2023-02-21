@@ -1,4 +1,6 @@
 import { useState } from "react";
+import Swal from "sweetalert2";
+
 import { useCartContext } from "../context/RestauranteCartContext";
 
 function ItemCart({ producto }) {
@@ -9,6 +11,13 @@ function ItemCart({ producto }) {
   const actualizarNota = (evento) => {
     evento.preventDefault();
     producto.nota = nota;
+    Swal.fire({
+      title: "Actualizado",
+      text: "¡Se ha actualizado el contenido de la nota!",
+      icon: "success",
+      confirmButtonColor: "#491632",
+      iconColor: "#dc3545",
+    });
   };
 
   const cleanNote = () => {
@@ -81,7 +90,11 @@ function ItemCart({ producto }) {
                       >
                         Close
                       </button>
-                      <button type="submit" className="btn btn-danger">
+                      <button
+                        type="submit"
+                        className="btn btn-danger"
+                        data-bs-dismiss="modal"
+                      >
                         Actualizar Nota
                       </button>
                     </div>
