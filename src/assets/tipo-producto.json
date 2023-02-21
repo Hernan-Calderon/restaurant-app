@@ -1,1 +1,1 @@
-[{"id":"1","nombre":"plato"},{"id":"2","nombre":"bebida"},{"id":"3","nombre":"promo"},{"id":"4","nombre":"sushi"}]
+[{"id":"1","nombre":"Plato", "tipo": "plato","titulo": "Platos"},{"id":"2","nombre":"Bebida", "tipo": "bebida","titulo": "Bebidas"},{"id":"3","nombre":"Promoción", "tipo": "promo","titulo": "Promociones"},{"id":"4","nombre":"Sushi", "tipo":"sushi","titulo": "Sushi"}]

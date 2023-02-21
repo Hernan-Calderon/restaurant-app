@@ -17,7 +17,7 @@ function CartView({ user }) {
       <div className="container">
         <p>¡No hay productos en el carrito!</p>
         <div>
-          <Link className="btn btn-danger rounded-pill" to="/menu">
+          <Link className="btn btn-danger rounded-pill" to="/productos">
             Ir al menú
           </Link>
         </div>
@@ -47,6 +47,7 @@ function CartView({ user }) {
             <th scope="col">Precio Unidad</th>
             <th scope="col">Cantidad</th>
             <th scope="col">Subtotal</th>
+            <th scope="col">Anotaciones</th>
             <th scope="col">Eliminar</th>
           </tr>
         </thead>
@@ -58,7 +59,7 @@ function CartView({ user }) {
       </table>
       <h5>Total: $ {precioTotal()}</h5>
       <div className="d-grid gap-2 d-md-flex justify-content-md-end">
-        <Link className="btn btn-danger rounded-pill" to="/menu">
+        <Link className="btn btn-danger rounded-pill" to="/productos">
           Continuar Agregagando
         </Link>
         <button

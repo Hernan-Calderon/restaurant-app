@@ -71,7 +71,7 @@ function RestaurantView({ user }) {
                 </li>
 
                 <li className="nav-item">
-                  <NavLink className="nav-link" to="menu">
+                  <NavLink className="nav-link" to="productos">
                     Menú
                   </NavLink>
                 </li>
@@ -121,7 +121,7 @@ function RestaurantView({ user }) {
       <Routes>
         <Route path="/" element={<WelcomeView user={user} />} />
         <Route path="inicio" element={<WelcomeView user={user} />} />
-        <Route path="menu" element={<MenuView user={user} />} />
+        <Route path="productos" element={<MenuView user={user} />} />
         <Route path="pedidos" element={<OrdersView user={user} />} />
         <Route path="carrito" element={<CartView user={user} />} />
         <Route path="confirmar" element={<ConfirmarPedido user={user} />} />
@@ -144,7 +144,7 @@ function RestaurantView({ user }) {
                 </Link>
               </p>
               <p className="mb-0">
-                <Link className="nav-link" to="menu">
+                <Link className="nav-link" to="productos">
                   Menú
                 </Link>
               </p>

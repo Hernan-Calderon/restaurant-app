@@ -2,58 +2,78 @@ import { useState } from "react";
 import Swal from "sweetalert2";
 
 import firebaseApp from "../firebase/credenciales";
-import { getFirestore, doc, setDoc } from "firebase/firestore";
-import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
-
-import { v4 } from "uuid";
+import { getFirestore, doc, updateDoc } from "firebase/firestore";
+import {
+  getStorage,
+  deleteObject,
+  ref,
+  uploadBytes,
+  getDownloadURL,
+} from "firebase/storage";
 
 const storage = getStorage(firebaseApp);
 
-function CrearProducto({ tipo, getDocumentos }) {
+function ActualizarProducto({
+  identificador,
+  nombre,
+  descripcion,
+  precio,
+  tipo,
+  urlImg,
+  getDocumentos,
+}) {
   const db = getFirestore(firebaseApp);
   const listaProductos = require("../assets/tipo-producto.json");
 
   const [archivo, setFile] = useState(null);
   const [nombreImagen, setNombreImagen] = useState("");
-  const [nombreProducto, setNombreProducto] = useState("");
-  const [precioProducto, setPrecioProducto] = useState(0);
-  const [tipoProducto, setTipoProducto] = useState("plato");
-  const [descripProducto, setDescripProducto] = useState("");
+  const [urlImagen, setUrlImagen] = useState(urlImg);
+  const [nombreProducto, setNombreProducto] = useState(nombre);
+  const [precioProducto, setPrecioProducto] = useState(precio);
+  const [tipoProducto, setTipoProducto] = useState(tipo);
+  const [descripProducto, setDescripProducto] = useState(descripcion);
 
-  async function uploadFile(file) {
-    const ruta = "productos/" + v4();
-    const storageRef = ref(storage, ruta);
-    await uploadBytes(storageRef, file);
-    const url = await getDownloadURL(storageRef);
-    return [url, ruta];
+  async function upDateFile(file) {
+    const ruta = "productos/" + identificador;
+    const referencia = ref(storage, ruta);
+    await deleteObject(referencia);
+    await uploadBytes(referencia, file);
+    const url = await getDownloadURL(referencia);
+    return url;
   }
 
-  function cleanForm() {
+  function updateForm() {
     setFile(null);
     setNombreImagen("");
-    setNombreProducto("");
-    setPrecioProducto(0);
-    setTipoProducto("plato");
-    setDescripProducto("");
+    setUrlImagen(urlImg);
+    setNombreProducto(nombre);
+    setPrecioProducto(precio);
+    setTipoProducto(tipo);
+    setDescripProducto(descripcion);
   }
 
-  const createProduct = async (evento) => {
+  const updateProduct = async (evento) => {
     evento.preventDefault();
     try {
-      const carga = await uploadFile(archivo);
-      const docuRef = doc(db, carga[1]);
-      await setDoc(docuRef, {
+      const docRef = doc(db, "productos", identificador);
+      if (archivo !== null) {
+        const url = await upDateFile(archivo);
+        setUrlImagen(url);
+      }
+
+      await updateDoc(docRef, {
         nombre_producto: nombreProducto,
         precio: precioProducto,
         descripcion: descripProducto,
         tipo: tipoProducto,
-        url_imagen: carga[0],
+        url_imagen: urlImagen,
       });
-      Swal.fire("Creado", "El Producto se ha creado con éxito.", "success");
-      if (tipo === tipoProducto) {
-        getDocumentos();
-      }
-      cleanForm();
+      Swal.fire(
+        "Actualizado",
+        "El Producto se ha actualizado con éxito.",
+        "success"
+      );
+      getDocumentos();
     } catch (error) {
       Swal.fire("Error", error.message.slice(10), "error");
     }
@@ -63,18 +83,18 @@ function CrearProducto({ tipo, getDocumentos }) {
     <div className="modal-content">
       <div className="modal-header">
         <h1 className="modal-title fs-5" id="crearProductoLabel">
-          Crear Producto
+          Actualizar Producto
         </h1>
         <button
           type="button"
           className="btn-close"
           data-bs-dismiss="modal"
           aria-label="Close"
-          onClick={() => cleanForm()}
+          onClick={() => updateForm()}
         ></button>
       </div>
       <div className="modal-body">
-        <form onSubmit={createProduct}>
+        <form onSubmit={updateProduct}>
           <div className="row">
             <div className="form-group col-md-6">
               <br></br>
@@ -157,7 +177,6 @@ function CrearProducto({ tipo, getDocumentos }) {
                 Imagen producto (Relación de aspecto: 1:1)
               </label>
               <input
-                required
                 type="file"
                 className="form-control"
                 id="archivo"
@@ -174,12 +193,12 @@ function CrearProducto({ tipo, getDocumentos }) {
                 type="button"
                 className="btn btn-primary"
                 data-bs-dismiss="modal"
-                onClick={() => cleanForm()}
+                onClick={() => updateForm()}
               >
                 Close
               </button>
               <button type="submit" className="btn btn-danger">
-                Crear Producto
+                Actualizar
               </button>
             </div>
           </div>
@@ -189,4 +208,4 @@ function CrearProducto({ tipo, getDocumentos }) {
   );
 }
 
-export default CrearProducto;
+export default ActualizarProducto;

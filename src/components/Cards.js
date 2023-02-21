@@ -15,7 +15,7 @@ function Cards({ user }) {
           <div className="card-body">
             <h5 className="card-title">MENÚ</h5>
             <p className="card-text">Todos nuestros productos a tu alcance.</p>
-            <Link className="btn btn-danger rounded-pill" to="/menu">
+            <Link className="btn btn-danger rounded-pill" to="/productos">
               Ir al Menú
             </Link>
           </div>
@@ -24,7 +24,7 @@ function Cards({ user }) {
 
       <div className="col-12 col-sm-6 col-md-4">
         <div className="card">
-          <img src={carrito} className="card-img-top" alt="pedidos" />
+          <img src={carrito} className="card-img-top" alt="carrito" />
           <div className="card-body">
             <h5 className="card-title">CARRITO</h5>
             <p className="card-text">

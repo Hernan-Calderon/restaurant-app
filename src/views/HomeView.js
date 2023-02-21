@@ -8,7 +8,7 @@ function HomeView({ user }) {
   let vista = <></>;
 
   switch (user.rol) {
-    case "admin_tienda":
+    case "admin":
       vista = <AdminView user={user} />;
       break;
     case "cocina":

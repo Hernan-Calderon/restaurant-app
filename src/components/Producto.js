@@ -1,19 +1,24 @@
 import firebaseApp from "../firebase/credenciales";
-import { getFirestore, doc, getDoc } from "firebase/firestore";
+import { getFirestore, doc, getDoc, deleteDoc } from "firebase/firestore";
+import { getStorage, ref, deleteObject } from "firebase/storage";
 import Swal from "sweetalert2";
 
 import { useCartContext } from "../context/RestauranteCartContext";
+import ActualizarProducto from "./ActualizarProducto";
+
+const storage = getStorage(firebaseApp);
 
 function Producto({
   identificador,
   nombre,
   descripcion,
   precio,
+  tipo,
   urlImagen,
   user,
+  getDocumentos,
 }) {
   const { addProduct } = useCartContext();
-
   const db = getFirestore(firebaseApp);
 
   async function obtenerProducto(identificador) {
@@ -36,6 +41,35 @@ function Producto({
     }
   }
 
+  function avisoEliminacion(identificador) {
+    Swal.fire({
+      title: "¿Está seguro?",
+      text: "¡No podrá revertir esta acción!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "¡Si, Eliminar!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        deleteProduct(identificador);
+      }
+    });
+  }
+
+  const deleteProduct = async (identificador) => {
+    try {
+      const docRef = doc(db, "productos", identificador);
+      await deleteDoc(docRef);
+      const desertRef = ref(storage, "productos/" + identificador);
+      await deleteObject(desertRef);
+      Swal.fire("Eliminado", "El producto ha sido eliminado.", "success");
+      getDocumentos();
+    } catch (error) {
+      Swal.fire("Error", error.message.slice(10), "error");
+    }
+  };
+
   const agregarProducto = async (identificador) => {
     try {
       const docSnap = await obtenerProducto(identificador);
@@ -48,8 +82,8 @@ function Producto({
         const cantidad = parseInt(document.getElementById(identificador).value);
         addProduct(producto, cantidad);
         Swal.fire({
-          title: "Éxito",
-          text: "¡Se ha agregado el producto al carrito!",
+          title: "Agregado al Carrito",
+          text: "¡Se ha agregado el producto al carrito de compras!",
           icon: "success",
           confirmButtonColor: "#491632",
           iconColor: "#dc3545",
@@ -73,10 +107,42 @@ function Producto({
             <strong>$ {precio}</strong>
           </span>
           <br></br>
-          {user && user.rol === "admin_tienda" ? (
+          {user && user.rol === "admin" ? (
             <div className="d-grid gap-2 col-6">
-              <button className="btn btn-primary">Actualizar</button>
-              <button className="btn btn-danger">Eliminar</button>
+              <button
+                type="button"
+                className="btn btn-primary"
+                data-bs-toggle="modal"
+                data-bs-target={"#actualizar" + identificador}
+              >
+                Actualizar
+              </button>
+
+              <div
+                className="modal fade"
+                id={"actualizar" + identificador}
+                tabIndex="-1"
+                aria-labelledby={"actualizar" + identificador + "Label"}
+                aria-hidden="true"
+              >
+                <div className="modal-dialog">
+                  <ActualizarProducto
+                    identificador={identificador}
+                    nombre={nombre}
+                    descripcion={descripcion}
+                    precio={precio}
+                    tipo={tipo}
+                    urlImg={urlImagen}
+                    getDocumentos={getDocumentos}
+                  ></ActualizarProducto>
+                </div>
+              </div>
+              <button
+                className="btn btn-danger"
+                onClick={() => avisoEliminacion(identificador)}
+              >
+                Eliminar
+              </button>
             </div>
           ) : (
             <div>

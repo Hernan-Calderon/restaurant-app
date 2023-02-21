@@ -68,7 +68,7 @@ function OrdersView({ user }) {
         <tbody>{items}</tbody>
       </table>
       <div className="d-grid d-md-flex justify-content-md-end">
-        <Link className="btn btn-danger rounded-pill" to="/menu">
+        <Link className="btn btn-danger rounded-pill" to="/productos">
           Ir al Menú
         </Link>
       </div>

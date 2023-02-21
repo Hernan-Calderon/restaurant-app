@@ -1,8 +1,4 @@
 import React, { useState, useEffect } from "react";
-
-import Producto from "../../components/Producto";
-
-import firebaseApp from "../../firebase/credenciales";
 import {
   getFirestore,
   collection,
@@ -10,20 +6,19 @@ import {
   query,
   where,
 } from "firebase/firestore";
+
+import firebaseApp from "../../firebase/credenciales";
 import CrearProducto from "../../components/CrearProducto";
+import Producto from "../../components/Producto";
+import BtnMenu from "../../components/BtnMenu";
 
 function ProductsView({ user }) {
   const db = getFirestore(firebaseApp);
+  const productos = require("../../assets/tipo-producto.json");
+
   const [tipoProducto, setTipoProducto] = useState("plato");
   const [docProductos, setDocProductos] = useState([]);
   const [tituloProductos, setTituloProductos] = useState("");
-
-  const productos = [
-    { tipo: "plato", titulo: "Platos" },
-    { tipo: "sushi", titulo: "Sushi" },
-    { tipo: "promo", titulo: "Promociones" },
-    { tipo: "bebida", titulo: "Bebidas" },
-  ];
 
   async function getDocumentos() {
     try {
@@ -55,8 +50,10 @@ function ProductsView({ user }) {
         nombre={doc.data()["nombre_producto"]}
         descripcion={doc.data()["descripcion"]}
         precio={doc.data()["precio"]}
+        tipo={doc.data()["tipo"]}
         urlImagen={doc.data()["url_imagen"]}
         user={user}
+        getDocumentos={getDocumentos}
       />
     );
   });
@@ -83,7 +80,7 @@ function ProductsView({ user }) {
       >
         <div className="modal-dialog">
           <CrearProducto
-            tipoProducto={tipoProducto}
+            tipo={tipoProducto}
             getDocumentos={getDocumentos}
           ></CrearProducto>
         </div>
@@ -91,23 +88,12 @@ function ProductsView({ user }) {
       <hr></hr>
       <div className="btn-group" role="group">
         {productos.map((producto) => (
-          <>
-            <input
-              type="radio"
-              className="btn-check"
-              name="btnradio"
-              id={producto.tipo}
-              autoComplete="off"
-              defaultChecked={producto.tipo === "plato"}
-            />
-            <label
-              className="btn btn-outline-danger"
-              htmlFor={producto.tipo}
-              onClick={() => setTipoProducto(producto.tipo)}
-            >
-              {producto.titulo}
-            </label>
-          </>
+          <BtnMenu
+            key={producto.id}
+            tipo={producto.tipo}
+            titulo={producto.titulo}
+            setTipoProducto={setTipoProducto}
+          ></BtnMenu>
         ))}
       </div>
 
