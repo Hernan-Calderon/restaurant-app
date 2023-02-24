@@ -34,6 +34,8 @@ function ConfirmarPedido({ user }) {
     hora: showTime(),
     estado: "Preparando",
     mesa: mesa,
+    observaciones: "",
+    valoracion: "sc",
     items: cart.map((product) => ({
       id: product.id,
       nombre: product.nombre,

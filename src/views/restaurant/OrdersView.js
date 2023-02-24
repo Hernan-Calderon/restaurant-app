@@ -49,6 +49,8 @@ function OrdersView({ user }) {
         estado={doc.data()["estado"]}
         items={doc.data()["items"]}
         total={doc.data()["total"]}
+        calificacion={doc.data()["valoracion"]}
+        observacion={doc.data()["observaciones"]}
       />
     );
   });
@@ -63,6 +65,7 @@ function OrdersView({ user }) {
             <th scope="col">Fecha</th>
             <th scope="col">Hora</th>
             <th scope="col">Detalle</th>
+            <th scope="col">Valoración</th>
           </tr>
         </thead>
         <tbody>{items}</tbody>

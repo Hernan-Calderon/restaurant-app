@@ -185,6 +185,7 @@ function CrearProducto({ tipo, getDocumentos }) {
           </div>
         </form>
       </div>
+      <div className="modal-footer"></div>
     </div>
   );
 }

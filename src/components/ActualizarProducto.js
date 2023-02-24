@@ -82,7 +82,10 @@ function ActualizarProducto({
   return (
     <div className="modal-content">
       <div className="modal-header">
-        <h1 className="modal-title fs-5" id="crearProductoLabel">
+        <h1
+          className="modal-title fs-5"
+          id={"actualizar" + identificador + "Label"}
+        >
           Actualizar Producto
         </h1>
         <button
@@ -204,6 +207,7 @@ function ActualizarProducto({
           </div>
         </form>
       </div>
+      <div className="modal-footer"></div>
     </div>
   );
 }
