@@ -1,23 +1,30 @@
-import { useEffect, useState, useMemo } from "react";
-import { Link } from "react-router-dom";
-
-import firebaseApp from "../../firebase/credenciales";
+import React, { useState, useEffect } from "react";
 import {
   getFirestore,
   collection,
   getDocs,
   query,
   where,
+  Timestamp,
 } from "firebase/firestore";
 
+import firebaseApp from "../../firebase/credenciales";
+import BtnMenu from "../../components/BtnMenu";
 import ItemPedido from "../../components/ItemPedido";
+import GraficoValoraciones from "../../components/GraficoValoraciones";
 
-function OrdersView({ user }) {
+function RatingsView({ user }) {
+  const valoraciones = require("../../assets/valoraciones.json");
+
   const [pedidos, setPedidos] = useState([]);
+  const [tipoValor, setTipoValor] = useState("5");
 
-  const idUsuario = useMemo(() => {
-    return user.uid;
-  }, [user]);
+  const fechaBase = () => {
+    let hoy = new Date();
+    let treintaDias = 1000 * 60 * 60 * 24 * 30;
+    let resta = hoy.getTime() - treintaDias;
+    return new Date(resta);
+  };
 
   useEffect(() => {
     const db = getFirestore(firebaseApp);
@@ -25,7 +32,8 @@ function OrdersView({ user }) {
     async function getPedidos() {
       let consulta = query(
         collection(db, "pedidos"),
-        where("id_usuario", "==", idUsuario)
+        where("valoracion", "==", tipoValor),
+        where("fecha", ">=", Timestamp.fromDate(fechaBase()))
       );
       try {
         let querySnapshot = await getDocs(consulta);
@@ -35,7 +43,7 @@ function OrdersView({ user }) {
       }
     }
     getPedidos();
-  }, [idUsuario, pedidos]);
+  }, [tipoValor]);
 
   const items = [];
 
@@ -58,8 +66,22 @@ function OrdersView({ user }) {
 
   return (
     <div className="container">
-      <h1 style={{ color: "#491632" }}>Pedidos</h1>
-      <br></br>
+      <h1>Valoración del Servicio</h1>
+      <GraficoValoraciones fechaBase={fechaBase}></GraficoValoraciones>
+      <hr></hr>
+      <div className="btn-group" role="group">
+        {valoraciones.map((valoracion) => (
+          <BtnMenu
+            key={valoracion.id}
+            tipo={valoracion.tipo}
+            titulo={valoracion.titulo}
+            setTipoProducto={setTipoValor}
+            valorDefecto={"5"}
+          ></BtnMenu>
+        ))}
+      </div>
+      <hr></hr>
+      <h4>{"Pedidos con valoración = " + tipoValor}</h4>
       <table className="table table-borderless">
         <thead>
           <tr className="text-light" style={{ background: "#491632" }}>
@@ -71,14 +93,8 @@ function OrdersView({ user }) {
         </thead>
         <tbody>{items}</tbody>
       </table>
-      <div className="d-grid d-md-flex justify-content-md-end">
-        <Link className="btn btn-danger rounded-pill" to="/productos">
-          Ir al Menú
-        </Link>
-      </div>
-      <br></br>
     </div>
   );
 }
 
-export default OrdersView;
+export default RatingsView;

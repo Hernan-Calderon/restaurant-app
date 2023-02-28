@@ -71,6 +71,7 @@ function MenuView({ user }) {
               tipo={producto.tipo}
               titulo={producto.titulo}
               setTipoProducto={setTipoProducto}
+              valorDefecto={"plato"}
             ></BtnMenu>
           ))}
         </div>

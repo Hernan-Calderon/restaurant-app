@@ -7,6 +7,7 @@ import { getAuth, signOut } from "firebase/auth";
 
 import WelcomeView from "./WelcomeView";
 import ProductsView from "./ProductsView";
+import RatingsView from "./RatingsView";
 
 import Titulo from "../../components/Titulo";
 
@@ -64,6 +65,12 @@ function AdminView({ user }) {
                   </NavLink>
                 </li>
 
+                <li className="nav-item">
+                  <NavLink className="nav-link" to="valoraciones">
+                    Valoraciones
+                  </NavLink>
+                </li>
+
                 <li className="nav-item m-1">
                   <NavLink
                     className="btn btn-sm sesion"
@@ -86,6 +93,7 @@ function AdminView({ user }) {
         <Route path="/" element={<WelcomeView user={user} />} />
         <Route path="inicio" element={<WelcomeView user={user} />} />
         <Route path="productos" element={<ProductsView user={user} />} />
+        <Route path="valoraciones" element={<RatingsView user={user} />} />
       </Routes>
 
       <footer className="bg-danger text-white">
@@ -106,6 +114,11 @@ function AdminView({ user }) {
               <p className="mb-0">
                 <Link className="nav-link" to="productos">
                   Productos
+                </Link>
+              </p>
+              <p className="mb-0">
+                <Link className="nav-link" to="valoraciones">
+                  Valoraciones
                 </Link>
               </p>
             </div>

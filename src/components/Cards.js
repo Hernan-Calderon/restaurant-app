@@ -54,7 +54,7 @@ function Cards({ user }) {
           <div className="card">
             <img src={ingresar} className="card-img-top" alt="ingresar" />
             <div className="card-body">
-              <h5 className="card-title">Ingresar</h5>
+              <h5 className="card-title">INGRESAR</h5>
               <p className="card-text">
                 Inicia sesión o registrate para realizar tus pedidos.
               </p>

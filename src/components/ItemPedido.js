@@ -8,13 +8,14 @@ import Detalle from "./Detalle";
 
 function ItemPedido({
   identificador,
-  fecha,
+  fechaString,
   hora,
   estado,
   items,
   total,
   calificacion,
   observacion,
+  user,
 }) {
   const db = getFirestore(firebaseApp);
   const [observaciones, setObservaciones] = useState(observacion);
@@ -25,13 +26,13 @@ function ItemPedido({
   let estilo = "";
   switch (estado) {
     case "Finalizado":
-      estilo = "btn rounded-pill btn-primary";
+      estilo = "btn btn-primary";
       break;
     case "Listo":
-      estilo = "btn rounded-pill btn-success";
+      estilo = "btn btn-success";
       break;
     default:
-      estilo = "btn rounded-pill btn-danger";
+      estilo = "btn btn-danger";
   }
 
   function cleanForm() {
@@ -74,7 +75,7 @@ function ItemPedido({
 
   return (
     <tr style={{ background: "#FEEFEC" }}>
-      <td>{fecha}</td>
+      <td>{fechaString}</td>
       <td>{hora}</td>
       <td>
         <button
@@ -96,7 +97,7 @@ function ItemPedido({
             <div className="modal-content">
               <div className="modal-header">
                 <h1 className="modal-title fs-5" id="exampleModalLabel">
-                  Pedido: {fecha} {hora}
+                  Pedido: {fechaString} {hora}
                 </h1>
                 <button
                   type="button"
@@ -142,7 +143,7 @@ function ItemPedido({
       <td>
         <button
           type="button"
-          className="btn rounded-pill btn-danger"
+          className="btn btn-danger"
           data-bs-toggle="modal"
           data-bs-target={"#val" + id}
         >
@@ -174,7 +175,7 @@ function ItemPedido({
                   <div className="row">
                     <div className="form-group col-md-6">
                       <label htmlFor="valor" className="form-label">
-                        Calificación
+                        Valoración del servicio
                       </label>
                       <select
                         className="form-control"
@@ -195,13 +196,13 @@ function ItemPedido({
 
                     <div className="form-group col-md-6 mb-3">
                       <label htmlFor="observaciones" className="form-label">
-                        Observaciones
+                        Comentarios
                       </label>
                       <textarea
                         className="form-control"
                         id="observaciones"
                         rows="3"
-                        placeholder="Observaciones"
+                        placeholder="Comentarios del servicio"
                         value={observaciones}
                         onChange={(evento) => {
                           setObservaciones(evento.target.value);
@@ -219,9 +220,13 @@ function ItemPedido({
                       >
                         Close
                       </button>
-                      <button type="submit" className="btn btn-danger">
-                        Actualizar valoración
-                      </button>
+                      {user && user.rol === "user" ? (
+                        <button type="submit" className="btn btn-danger">
+                          Actualizar valoración
+                        </button>
+                      ) : (
+                        <></>
+                      )}
                     </div>
                   </div>
                 </form>

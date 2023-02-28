@@ -61,15 +61,17 @@ function ProductsView({ user }) {
   return (
     <div className="container">
       <h1>Administración de Productos</h1>
-
-      <button
-        type="button"
-        className="btn btn-danger"
-        data-bs-toggle="modal"
-        data-bs-target="#crearProducto"
-      >
-        Crear Producto
-      </button>
+      <br></br>
+      <div className="d-grid d-md-flex justify-content-md-end">
+        <button
+          type="button"
+          className="btn btn-danger"
+          data-bs-toggle="modal"
+          data-bs-target="#crearProducto"
+        >
+          Crear Producto
+        </button>
+      </div>
 
       <div
         className="modal fade"
@@ -93,6 +95,7 @@ function ProductsView({ user }) {
             tipo={producto.tipo}
             titulo={producto.titulo}
             setTipoProducto={setTipoProducto}
+            valorDefecto={"plato"}
           ></BtnMenu>
         ))}
       </div>

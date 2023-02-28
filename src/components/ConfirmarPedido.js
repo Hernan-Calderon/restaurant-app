@@ -4,7 +4,12 @@ import Swal from "sweetalert2";
 
 import { useCartContext } from "../context/RestauranteCartContext";
 import firebaseApp from "../firebase/credenciales";
-import { getFirestore, collection, addDoc } from "firebase/firestore";
+import {
+  getFirestore,
+  collection,
+  addDoc,
+  Timestamp,
+} from "firebase/firestore";
 
 function ConfirmarPedido({ user }) {
   const db = getFirestore(firebaseApp);
@@ -14,12 +19,12 @@ function ConfirmarPedido({ user }) {
 
   const [codigo, setCodigo] = useState("");
   const [mesa, setMesa] = useState("1");
+  const hoy = new Date();
 
   function showTime() {
-    const myDate = new Date();
-    const hours = myDate.getHours();
-    const minutes = myDate.getMinutes();
-    const seconds = myDate.getSeconds();
+    const hours = hoy.getHours();
+    const minutes = hoy.getMinutes();
+    const seconds = hoy.getSeconds();
     return hours + ":" + minutes + ":" + seconds;
   }
 
@@ -30,7 +35,8 @@ function ConfirmarPedido({ user }) {
 
   const pedido = {
     id_usuario: user.uid,
-    fecha: new Date().toLocaleDateString(),
+    fecha_string: hoy.toLocaleDateString(),
+    fecha: Timestamp.fromDate(hoy),
     hora: showTime(),
     estado: "Preparando",
     mesa: mesa,

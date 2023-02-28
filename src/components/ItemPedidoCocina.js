@@ -6,7 +6,14 @@ import Swal from "sweetalert2";
 import firebaseApp from "../firebase/credenciales";
 import DetalleCocina from "./DetalleCocina";
 
-function ItemPedidoCocina({ identificador, fecha, hora, estado, mesa, items }) {
+function ItemPedidoCocina({
+  identificador,
+  fechaString,
+  hora,
+  estado,
+  mesa,
+  items,
+}) {
   const db = getFirestore(firebaseApp);
 
   let productos = [];
@@ -36,7 +43,7 @@ function ItemPedidoCocina({ identificador, fecha, hora, estado, mesa, items }) {
     <div className="col-12 col-lg-6">
       <br></br>
       <h3>
-        Pedido: {fecha} {hora} Mesa:{mesa}
+        Pedido: {fechaString} {hora} Mesa:{mesa}
       </h3>
       <div className="container">
         <table className="table table-borderless">

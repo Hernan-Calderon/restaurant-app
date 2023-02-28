@@ -13,6 +13,7 @@ import Titulo from "../../components/Titulo";
 import ItemPedidoCocina from "../../components/ItemPedidoCocina";
 
 import logoRestaurante from "../../images/logo_restaurante.png";
+import triste from "../../images/triste.png";
 
 const auth = getAuth(firebaseApp);
 
@@ -44,7 +45,7 @@ function KitchenView({ user }) {
       <ItemPedidoCocina
         key={doc.id}
         identificador={doc.id}
-        fecha={doc.data()["fecha"]}
+        fechaString={doc.data()["fecha_string"]}
         hora={doc.data()["hora"]}
         estado={doc.data()["estado"]}
         mesa={doc.data()["mesa"]}
@@ -67,7 +68,15 @@ function KitchenView({ user }) {
 
       <Titulo imagenTitulo={logoRestaurante} />
       <h1>Cocina Restaurante</h1>
-      <div className="row">{items}</div>
+      {items.length === 0 ? (
+        <div>
+          <p>¡No hay pedidos pendientes!</p>
+          <Titulo imagenTitulo={triste} />
+          <br></br>
+        </div>
+      ) : (
+        <div className="row">{items}</div>
+      )}
     </div>
   );
 }

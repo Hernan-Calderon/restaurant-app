@@ -1,6 +1,6 @@
 import React from "react";
 
-function BtnMenu({ tipo, titulo, setTipoProducto }) {
+function BtnMenu({ tipo, titulo, setTipoProducto, valorDefecto }) {
   return (
     <>
       <input
@@ -9,7 +9,7 @@ function BtnMenu({ tipo, titulo, setTipoProducto }) {
         name="btnradio"
         id={tipo}
         autoComplete="off"
-        defaultChecked={tipo === "plato"}
+        defaultChecked={tipo === valorDefecto}
       />
       <label
         className="btn btn-outline-danger"
