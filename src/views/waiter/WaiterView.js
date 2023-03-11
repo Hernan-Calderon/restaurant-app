@@ -10,9 +10,7 @@ import WelcomeView from "./WelcomeView";
 import MenuView from "./MenuView";
 import OrdersView from "./OrdersView";
 import CartView from "./CartView";
-import LoginView from "./LoginView";
-import ConfirmarPedido from "../../components/ConfirmarPedido";
-import PagoElectronico from "../../components/PagoElectronico";
+import ConfirmarPedidoMesero from "../../components/ConfirmarPedidoMesero";
 
 import Titulo from "../../components/Titulo";
 
@@ -22,7 +20,7 @@ import logoRestaurante from "../../images/logo_restaurante.png";
 
 const auth = getAuth(firebaseApp);
 
-function RestaurantView({ user }) {
+function WaiterView({ user }) {
   const { cleanCart } = useCartContext();
 
   function cerrarSesion() {
@@ -77,15 +75,11 @@ function RestaurantView({ user }) {
                   </NavLink>
                 </li>
 
-                {user && user.rol === "cliente" ? (
-                  <li className="nav-item">
-                    <NavLink className="nav-link" to="pedidos">
-                      Pedidos
-                    </NavLink>
-                  </li>
-                ) : (
-                  <></>
-                )}
+                <li className="nav-item">
+                  <NavLink className="nav-link" to="pedidos">
+                    Pedidos
+                  </NavLink>
+                </li>
 
                 <li className="nav-item">
                   <NavLink className="nav-link" to="carrito">
@@ -93,23 +87,15 @@ function RestaurantView({ user }) {
                   </NavLink>
                 </li>
 
-                {user ? (
-                  <li className="nav-item m-1">
-                    <NavLink
-                      className="btn btn-sm sesion"
-                      to="inicio"
-                      onClick={() => cerrarSesion()}
-                    >
-                      Cerrar Sesión
-                    </NavLink>
-                  </li>
-                ) : (
-                  <li className="nav-item m-1">
-                    <NavLink className="btn btn-sm sesion" to="ingresar">
-                      Ingresar
-                    </NavLink>
-                  </li>
-                )}
+                <li className="nav-item m-1">
+                  <NavLink
+                    className="btn btn-sm sesion"
+                    to="inicio"
+                    onClick={() => cerrarSesion()}
+                  >
+                    Cerrar Sesión
+                  </NavLink>
+                </li>
               </ul>
             </div>
           </div>
@@ -124,10 +110,11 @@ function RestaurantView({ user }) {
         <Route path="inicio" element={<WelcomeView user={user} />} />
         <Route path="productos" element={<MenuView user={user} />} />
         <Route path="pedidos" element={<OrdersView user={user} />} />
-        <Route path="carrito" element={<CartView user={user} />} />
-        <Route path="confirmar" element={<ConfirmarPedido user={user} />} />
-        <Route path="ingresar" element={<LoginView />} />
-        <Route path="pagos" element={<PagoElectronico />} />
+        <Route path="carrito" element={<CartView />} />
+        <Route
+          path="confirmar"
+          element={<ConfirmarPedidoMesero user={user} />}
+        />
       </Routes>
 
       <footer className="bg-danger text-white">
@@ -150,17 +137,11 @@ function RestaurantView({ user }) {
                   Menú
                 </Link>
               </p>
-
-              {user && user.rol === "cliente" ? (
-                <p className="mb-0">
-                  <Link className="nav-link" to="pedidos">
-                    Pedidos
-                  </Link>
-                </p>
-              ) : (
-                <></>
-              )}
-
+              <p className="mb-0">
+                <Link className="nav-link" to="pedidos">
+                  Pedidos
+                </Link>
+              </p>
               <p className="mb-0">
                 <Link className="nav-link" to="carrito">
                   Carrito
@@ -187,4 +168,4 @@ function RestaurantView({ user }) {
   );
 }
 
-export default RestaurantView;
+export default WaiterView;

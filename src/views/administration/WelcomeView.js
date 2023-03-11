@@ -7,7 +7,7 @@ import valoraciones from "../../images/valoraciones.png";
 function WelcomeView({ user }) {
   return (
     <div className="container">
-      <h1>Administración</h1>
+      <h1>Administración Restaurante</h1>
       <p>Bienvenid@ {user.email}</p>
       <div className="row">
         <div className="col-md-2 col-xl-3 mb-3"></div>

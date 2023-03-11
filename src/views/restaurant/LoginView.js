@@ -32,12 +32,13 @@ function LoginView() {
     evento.preventDefault();
     const email = evento.target.elements.email.value;
     const password = evento.target.elements.password.value;
-    const rol = "user";
+    const rol = "cliente";
 
     if (estaRegistrando) {
       try {
         await registrar(email, password, rol);
         navigate("/inicio");
+        window.location.reload();
       } catch (error) {
         Swal.fire("Error", error.message.slice(10), "error");
       }

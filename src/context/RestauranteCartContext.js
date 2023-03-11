@@ -6,7 +6,9 @@ export const useCartContext = () => useContext(CartContext);
 function CartProvider({ children }) {
   const [cart, setCart] = useState([]);
   const [pedido, setPedido] = useState([]);
+  const [idPedido, setIdPedido] = useState("");
 
+  const pedidoPorPagar = (id) => setIdPedido(id);
   const cleanCart = () => setCart([]);
   const cleanPedido = () => setPedido([]);
   const isInCart = (id) =>
@@ -66,8 +68,10 @@ function CartProvider({ children }) {
         totalPedido,
         reconstruirPedido,
         cleanPedido,
+        pedidoPorPagar,
         cart,
         pedido,
+        idPedido,
       }}
     >
       {children}

@@ -1,5 +1,4 @@
 import { Link, useNavigate } from "react-router-dom";
-import Swal from "sweetalert2";
 
 import { useCartContext } from "../../context/RestauranteCartContext";
 import ItemCart from "../../components/ItemCart";
@@ -7,9 +6,8 @@ import Titulo from "../../components/Titulo";
 
 import triste from "../../images/triste.png";
 
-function CartView({ user }) {
+function CartView() {
   const { cart, precioTotal, cleanCart } = useCartContext();
-  const isDisabled = user && user.rol === "cliente" ? false : true;
   const navigate = useNavigate();
 
   if (cart.length === 0) {
@@ -27,13 +25,6 @@ function CartView({ user }) {
     );
   }
 
-  if (isDisabled) {
-    Swal.fire(
-      "Información",
-      "¡Para confirmar su pedido debe iniciar sesión o registrarse!",
-      "info"
-    );
-  }
   return (
     <div className="container">
       <h1>
@@ -69,7 +60,6 @@ function CartView({ user }) {
           Limpiar Carrito
         </button>
         <button
-          disabled={isDisabled}
           className="btn btn-danger rounded-pill"
           onClick={() => navigate("/confirmar")}
         >

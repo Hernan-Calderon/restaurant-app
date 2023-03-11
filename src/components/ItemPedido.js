@@ -2,9 +2,11 @@ import { useState } from "react";
 import { v4 } from "uuid";
 import { getFirestore, doc, updateDoc } from "firebase/firestore";
 import Swal from "sweetalert2";
+import { useNavigate } from "react-router-dom";
 
 import firebaseApp from "../firebase/credenciales";
 import Detalle from "./Detalle";
+import { useCartContext } from "../context/RestauranteCartContext";
 
 function ItemPedido({
   identificador,
@@ -15,8 +17,11 @@ function ItemPedido({
   total,
   calificacion,
   observacion,
+  pagoElectronico,
   user,
 }) {
+  const { pedidoPorPagar } = useCartContext();
+  const navigate = useNavigate();
   const db = getFirestore(firebaseApp);
   const [observaciones, setObservaciones] = useState(observacion);
   const [valoracion, setValoracion] = useState(calificacion);
@@ -25,7 +30,7 @@ function ItemPedido({
 
   let estilo = "";
   switch (estado) {
-    case "Finalizado":
+    case "Entregado":
       estilo = "btn btn-primary";
       break;
     case "Listo":
@@ -38,6 +43,11 @@ function ItemPedido({
   function cleanForm() {
     setObservaciones(observacion);
     setValoracion(calificacion);
+  }
+
+  function manejarPagoElectronico() {
+    pedidoPorPagar(identificador);
+    navigate("/pagos");
   }
 
   const calificar = async (evento) => {
@@ -125,14 +135,30 @@ function ItemPedido({
                   <h5>Total: $ {total}</h5>
                 </div>
                 <hr></hr>
-                <div className="d-grid">
+
+                <div className="d-grid gap-2 d-sm-flex justify-content-sm-end">
                   <button
                     type="button"
                     className={estilo}
                     data-bs-dismiss="modal"
                   >
-                    {estado}
+                    Close
                   </button>
+                  {pagoElectronico === true ? (
+                    <button disabled type="button" className="btn btn-warning">
+                      Pagado
+                    </button>
+                  ) : (
+                    <button
+                      disabled={user.rol === "admin"}
+                      type="button"
+                      className="btn btn-warning"
+                      data-bs-dismiss="modal"
+                      onClick={() => manejarPagoElectronico()}
+                    >
+                      Realizar Pago Electrónico
+                    </button>
+                  )}
                 </div>
               </div>
               <div className="modal-footer"></div>
@@ -146,6 +172,7 @@ function ItemPedido({
           className="btn btn-danger"
           data-bs-toggle="modal"
           data-bs-target={"#val" + id}
+          disabled={estado === "Preparando"}
         >
           Valoración
         </button>
@@ -220,7 +247,7 @@ function ItemPedido({
                       >
                         Close
                       </button>
-                      {user && user.rol === "user" ? (
+                      {user && user.rol === "cliente" ? (
                         <button type="submit" className="btn btn-danger">
                           Actualizar valoración
                         </button>

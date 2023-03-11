@@ -12,13 +12,12 @@ import firebaseApp from "../firebase/credenciales";
 import { useCartContext } from "../context/RestauranteCartContext";
 import ItemCart from "./ItemCart";
 
-function ConfirmarPedido({ user }) {
+function ConfirmarPedidoMesero({ user }) {
   const db = getFirestore(firebaseApp);
 
   const { cart, precioTotal, cleanCart } = useCartContext();
   const navigate = useNavigate();
 
-  const [codigo, setCodigo] = useState("");
   const [mesa, setMesa] = useState("1");
   const hoy = new Date();
 
@@ -27,11 +26,6 @@ function ConfirmarPedido({ user }) {
     const minutes = hoy.getMinutes();
     const seconds = hoy.getSeconds();
     return hours + ":" + minutes + ":" + seconds;
-  }
-
-  function cleanForm() {
-    setCodigo("");
-    setMesa("1");
   }
 
   const pedido = {
@@ -56,25 +50,21 @@ function ConfirmarPedido({ user }) {
 
   async function submitHandler(evento) {
     evento.preventDefault();
-    if (codigo === "1234") {
-      const coleccion = collection(db, "pedidos");
-      try {
-        await addDoc(coleccion, pedido);
-        cleanForm();
-        Swal.fire({
-          title: "Éxito",
-          text: "¡Se realizó el pedido con éxito!",
-          icon: "success",
-          confirmButtonColor: "#491632",
-          iconColor: "#dc3545",
-        });
-        cleanCart();
-        navigate("/pedidos");
-      } catch (error) {
-        Swal.fire("Error", error.message.slice(10), "error");
-      }
-    } else {
-      Swal.fire("Advertencia", "¡Código inválido!", "warning");
+    const coleccion = collection(db, "pedidos");
+    try {
+      await addDoc(coleccion, pedido);
+      setMesa("1");
+      Swal.fire({
+        title: "Éxito",
+        text: "¡Se realizó el pedido con éxito!",
+        icon: "success",
+        confirmButtonColor: "#491632",
+        iconColor: "#dc3545",
+      });
+      cleanCart();
+      navigate("/pedidos");
+    } catch (error) {
+      Swal.fire("Error", error.message.slice(10), "error");
     }
   }
 
@@ -87,7 +77,6 @@ function ConfirmarPedido({ user }) {
   return (
     <div className="container">
       <h1>Confirmar Pedido</h1>
-
       <br></br>
       <table className="table table-borderless">
         <thead>
@@ -107,31 +96,13 @@ function ConfirmarPedido({ user }) {
         </tbody>
       </table>
       <h5>Total: $ {precioTotal()}</h5>
-
-      <div style={{ background: "#FEEFEC" }}>
-        <h4>
-          Para confirmar el pedido ingrese el código del restaurante y el número
-          de la mesa.
-        </h4>
-      </div>
-
       <form onSubmit={submitHandler}>
         <div className="row">
-          <div className="form-group col-md-6 mb-3">
-            <label htmlFor="confirnmar" className="form-label">
-              Código Restaurante:
-            </label>
-            <input
-              required
-              type="password"
-              className="form-control"
-              id="confirmar"
-              placeholder="Ingrese el código de 4 dígitos"
-              value={codigo}
-              onChange={(evento) => {
-                setCodigo(evento.target.value);
-              }}
-            />
+          <div
+            className="form-group col-md-6 mb-3"
+            style={{ background: "#FEEFEC" }}
+          >
+            <h4>Para confirmar el pedido ingrese el número de la mesa.</h4>
           </div>
 
           <div className="form-group col-md-6 mb-3">
@@ -160,7 +131,7 @@ function ConfirmarPedido({ user }) {
             </button>
             <Link
               className="btn btn-danger rounded-pill"
-              onClick={() => cleanForm()}
+              onClick={() => setMesa("1")}
               to="/carrito"
             >
               Cancelar
@@ -172,4 +143,4 @@ function ConfirmarPedido({ user }) {
   );
 }
 
-export default ConfirmarPedido;
+export default ConfirmarPedidoMesero;

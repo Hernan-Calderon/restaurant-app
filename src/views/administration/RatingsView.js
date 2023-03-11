@@ -59,6 +59,7 @@ function RatingsView({ user }) {
         total={doc.data()["total"]}
         calificacion={doc.data()["valoracion"]}
         observacion={doc.data()["observaciones"]}
+        pagoElectronico={doc.data()["pago_electronico"]}
         user={user}
       />
     );
@@ -82,17 +83,19 @@ function RatingsView({ user }) {
       </div>
       <hr></hr>
       <h4>{"Pedidos con valoración = " + tipoValor}</h4>
-      <table className="table table-borderless">
-        <thead>
-          <tr className="text-light" style={{ background: "#491632" }}>
-            <th scope="col">Fecha</th>
-            <th scope="col">Hora</th>
-            <th scope="col">Detalle</th>
-            <th scope="col">Valoración</th>
-          </tr>
-        </thead>
-        <tbody>{items}</tbody>
-      </table>
+      <div className="table-responsive">
+        <table className="table table-borderless">
+          <thead>
+            <tr className="text-light" style={{ background: "#491632" }}>
+              <th scope="col">Fecha</th>
+              <th scope="col">Hora</th>
+              <th scope="col">Detalle</th>
+              <th scope="col">Valoración</th>
+            </tr>
+          </thead>
+          <tbody>{items}</tbody>
+        </table>
+      </div>
     </div>
   );
 }
