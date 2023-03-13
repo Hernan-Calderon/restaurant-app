@@ -38,7 +38,6 @@ function LoginView() {
       try {
         await registrar(email, password, rol);
         navigate("/inicio");
-        window.location.reload();
       } catch (error) {
         Swal.fire("Error", error.message.slice(10), "error");
       }
