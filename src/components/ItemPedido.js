@@ -172,7 +172,7 @@ function ItemPedido({
           className="btn btn-danger"
           data-bs-toggle="modal"
           data-bs-target={"#val" + id}
-          disabled={estado === "Preparando"}
+          disabled={estado !== "Entregado"}
         >
           Valoración
         </button>
