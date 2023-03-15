@@ -11,6 +11,7 @@ import MenuView from "./MenuView";
 import OrdersView from "./OrdersView";
 import CartView from "./CartView";
 import LoginView from "./LoginView";
+import RegisterView from "./RegisterView";
 import ConfirmarPedido from "../../components/ConfirmarPedido";
 import PagoElectronico from "../../components/PagoElectronico";
 
@@ -104,11 +105,18 @@ function RestaurantView({ user }) {
                     </NavLink>
                   </li>
                 ) : (
-                  <li className="nav-item m-1">
-                    <NavLink className="btn btn-sm sesion" to="ingresar">
-                      Ingresar
-                    </NavLink>
-                  </li>
+                  <>
+                    <li className="nav-item m-1">
+                      <NavLink className="btn btn-sm sesion" to="ingresar">
+                        Iniciar Sesión
+                      </NavLink>
+                    </li>
+                    <li className="nav-item m-1">
+                      <NavLink className="btn btn-sm sesion" to="registrar">
+                        Registrarse
+                      </NavLink>
+                    </li>
+                  </>
                 )}
               </ul>
             </div>
@@ -127,6 +135,7 @@ function RestaurantView({ user }) {
         <Route path="carrito" element={<CartView user={user} />} />
         <Route path="confirmar" element={<ConfirmarPedido user={user} />} />
         <Route path="ingresar" element={<LoginView />} />
+        <Route path="registrar" element={<RegisterView user={user} />} />
         <Route path="pagos" element={<PagoElectronico />} />
       </Routes>
 

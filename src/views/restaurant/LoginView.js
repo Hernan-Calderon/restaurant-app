@@ -1,53 +1,25 @@
-import React, { useState } from "react";
-import firebaseApp from "../../firebase/credenciales";
+import React from "react";
 import { useNavigate } from "react-router-dom";
-import {
-  getAuth,
-  createUserWithEmailAndPassword,
-  signInWithEmailAndPassword,
-} from "firebase/auth";
-import { getFirestore, doc, setDoc } from "firebase/firestore";
 import Swal from "sweetalert2";
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+
+import firebaseApp from "../../firebase/credenciales";
 
 const auth = getAuth(firebaseApp);
 
 function LoginView() {
-  const db = getFirestore(firebaseApp);
-  const [estaRegistrando, setEstaRegistrando] = useState(false);
   const navigate = useNavigate();
-
-  async function registrar(email, password, rol) {
-    const infoUsuario = await createUserWithEmailAndPassword(
-      auth,
-      email,
-      password
-    ).then((usuarioFirebase) => {
-      return usuarioFirebase;
-    });
-    const docuRef = doc(db, `usuarios/${infoUsuario.user.uid}`);
-    await setDoc(docuRef, { correo: email, rol: rol });
-  }
 
   async function submitHandler(evento) {
     evento.preventDefault();
     const email = evento.target.elements.email.value;
     const password = evento.target.elements.password.value;
-    const rol = "cliente";
 
-    if (estaRegistrando) {
-      try {
-        await registrar(email, password, rol);
-        navigate("/inicio");
-      } catch (error) {
-        Swal.fire("Error", error.message.slice(10), "error");
-      }
-    } else {
-      try {
-        await signInWithEmailAndPassword(auth, email, password);
-        navigate("/inicio");
-      } catch (error) {
-        Swal.fire("Error", error.message.slice(10), "error");
-      }
+    try {
+      await signInWithEmailAndPassword(auth, email, password);
+      navigate("/inicio");
+    } catch (error) {
+      Swal.fire("Error", error.message.slice(10), "error");
     }
   }
 
@@ -64,7 +36,7 @@ function LoginView() {
             </p>
           </div>
           <br></br>
-          <h2>{estaRegistrando ? "Registrarse" : "Iniciar Sesión"}</h2>
+          <h2>{"Iniciar Sesión"}</h2>
 
           <form onSubmit={submitHandler}>
             <div className="form-group">
@@ -91,9 +63,9 @@ function LoginView() {
               <button
                 type="submit"
                 className="btn btn-danger btn-sm"
-                value={estaRegistrando ? "Registrarse" : "Iniciar Sesión"}
+                value={"Iniciar Sesión"}
               >
-                {estaRegistrando ? "Registrarse" : "Iniciar Sesión"}
+                {"Iniciar Sesión"}
               </button>
               <div></div>
             </div>
@@ -101,15 +73,13 @@ function LoginView() {
           <br></br>
           <div className="text-center">
             <p>
-              {estaRegistrando
-                ? "¿Ya tienes una cuenta? "
-                : "¿Quieres una cuenta? "}
+              ¿Quieres una cuenta?
               <span
                 className="text-danger"
                 style={{ cursor: "pointer" }}
-                onClick={() => setEstaRegistrando(!estaRegistrando)}
+                onClick={() => navigate("/registrar")}
               >
-                {estaRegistrando ? "Inicia Sesión" : "Registrate"}
+                Registrate
               </span>
             </p>
           </div>
