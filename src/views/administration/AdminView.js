@@ -85,10 +85,11 @@ function AdminView({ user }) {
           </div>
         </div>
       </nav>
+      <br></br>
       <Link to="inicio">
         <Titulo imagenTitulo={logoRestaurante} />
       </Link>
-
+      <br></br>
       <Routes>
         <Route path="/" element={<WelcomeView user={user} />} />
         <Route path="inicio" element={<WelcomeView user={user} />} />
@@ -126,9 +127,9 @@ function AdminView({ user }) {
             <div className="col-12 col-sm-6 col-lg-3 mb-4">
               <p className="h5">Contacto</p>
               <br></br>
-              <p className="mb-0">Teléfono: 789456123</p>
               <p className="mb-0">Centro Comercial Demo Plaza</p>
               <p className="mb-0">Local: 324</p>
+              <p className="mb-0">Teléfono: 789456123</p>
             </div>
           </div>
         </div>

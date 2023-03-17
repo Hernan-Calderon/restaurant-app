@@ -101,10 +101,11 @@ function WaiterView({ user }) {
           </div>
         </div>
       </nav>
+      <br></br>
       <Link to="inicio">
         <Titulo imagenTitulo={logoRestaurante} />
       </Link>
-
+      <br></br>
       <Routes>
         <Route path="/" element={<WelcomeView user={user} />} />
         <Route path="inicio" element={<WelcomeView user={user} />} />

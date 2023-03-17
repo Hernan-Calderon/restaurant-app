@@ -1,8 +1,6 @@
 import React from "react";
 
-import Testimonios from "../../components/Testimonios";
 import Cards from "../../components/Cards";
-
 import food1 from "../../images/food1.jpg";
 import food2 from "../../images/food2.jpg";
 import food3 from "../../images/food3.jpg";
@@ -77,8 +75,6 @@ function WelcomeView({ user }) {
       </div>
       <br></br>
       <Cards user={user} />
-      <br></br>
-      <Testimonios />
       <br></br>
     </div>
   );

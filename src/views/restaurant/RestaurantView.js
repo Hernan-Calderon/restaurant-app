@@ -35,9 +35,12 @@ function RestaurantView({ user }) {
     <BrowserRouter>
       <nav className="navbar navbar-expand-lg navbar-dark bg-danger">
         <div className="container-fluid">
-          <span className="navbar-brand">
+          <a
+            className="navbar-brand"
+            href="https://tulopides-mall-demoplaza.netlify.app/"
+          >
             <img src={logo} alt="logo tu lo pides" width="180" height="48" />
-          </span>
+          </a>
           <button
             className="navbar-toggler"
             type="button"
@@ -55,7 +58,7 @@ function RestaurantView({ user }) {
           >
             <div className="offcanvas-header">
               <h5 className="offcanvas-title" id="offcanvasNavbarLabel">
-                Restaurant
+                WOK EXPRESS
               </h5>
               <button
                 type="button"
@@ -123,6 +126,7 @@ function RestaurantView({ user }) {
           </div>
         </div>
       </nav>
+      <br></br>
       <Link to="inicio">
         <Titulo imagenTitulo={logoRestaurante} />
       </Link>
@@ -180,9 +184,9 @@ function RestaurantView({ user }) {
             <div className="col-12 col-sm-6 col-lg-3 mb-4">
               <p className="h5">Contacto</p>
               <br></br>
-              <p className="mb-0">Teléfono: 789456123</p>
               <p className="mb-0">Centro Comercial Demo Plaza</p>
               <p className="mb-0">Local: 324</p>
+              <p className="mb-0">Teléfono: 789456123</p>
             </div>
           </div>
         </div>
