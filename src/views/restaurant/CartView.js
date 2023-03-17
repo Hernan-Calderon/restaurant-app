@@ -40,23 +40,25 @@ function CartView({ user }) {
         <i className="bi bi-cart4"></i>Carrito
       </h1>
       <br></br>
-      <table className="table table-borderless">
-        <thead>
-          <tr className="text-light" style={{ background: "#491632" }}>
-            <th scope="col">Producto</th>
-            <th scope="col">Precio Unidad</th>
-            <th scope="col">Cantidad</th>
-            <th scope="col">Subtotal</th>
-            <th scope="col">Anotaciones</th>
-            <th scope="col">Eliminar</th>
-          </tr>
-        </thead>
-        <tbody>
-          {cart.map((product) => (
-            <ItemCart key={product.id} producto={product} />
-          ))}
-        </tbody>
-      </table>
+      <div className="table-responsive">
+        <table className="table table-borderless">
+          <thead>
+            <tr className="text-light" style={{ background: "#491632" }}>
+              <th scope="col">Producto</th>
+              <th scope="col">Precio Unidad</th>
+              <th scope="col">Cantidad</th>
+              <th scope="col">Subtotal</th>
+              <th scope="col">Anotaciones</th>
+              <th scope="col">Eliminar</th>
+            </tr>
+          </thead>
+          <tbody>
+            {cart.map((product) => (
+              <ItemCart key={product.id} producto={product} />
+            ))}
+          </tbody>
+        </table>
+      </div>
       <h5>Total: $ {precioTotal()}</h5>
       <div className="d-grid gap-2 d-md-flex justify-content-md-end">
         <Link className="btn btn-danger rounded-pill" to="/productos">
