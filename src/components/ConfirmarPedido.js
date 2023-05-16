@@ -52,6 +52,7 @@ function ConfirmarPedido({ user }) {
     })),
     total: precioTotal(),
     pago_electronico: false,
+    pago_efectivo: false,
   };
 
   async function submitHandler(evento) {

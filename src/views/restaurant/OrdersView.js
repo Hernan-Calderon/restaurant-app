@@ -52,6 +52,7 @@ function OrdersView({ user }) {
         calificacion={doc.data()["valoracion"]}
         observacion={doc.data()["observaciones"]}
         pagoElectronico={doc.data()["pago_electronico"]}
+        pagoEfectivo={doc.data()["pago_efectivo"]}
         user={user}
       />
     );

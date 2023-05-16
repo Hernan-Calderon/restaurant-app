@@ -4,6 +4,7 @@ import AdminView from "./administration/AdminView";
 import RestaurantView from "./restaurant/RestaurantView";
 import KitchenView from "./kitchen/KitchenView";
 import WaiterView from "./waiter/WaiterView";
+import CashierView from "./cashier/CashierView";
 
 function HomeView({ user }) {
   let vista = <></>;
@@ -17,6 +18,9 @@ function HomeView({ user }) {
       break;
     case "mesero":
       vista = <WaiterView user={user} />;
+      break;
+    case "cajero":
+      vista = <CashierView user={user} />;
       break;
     default:
       vista = <RestaurantView user={user} />;

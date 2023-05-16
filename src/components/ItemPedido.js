@@ -18,6 +18,7 @@ function ItemPedido({
   calificacion,
   observacion,
   pagoElectronico,
+  pagoEfectivo,
   user,
 }) {
   const { pedidoPorPagar } = useCartContext();
@@ -144,7 +145,7 @@ function ItemPedido({
                   >
                     Close
                   </button>
-                  {pagoElectronico === true ? (
+                  {pagoElectronico === true || pagoEfectivo === true ? (
                     <button disabled type="button" className="btn btn-warning">
                       Pagado
                     </button>
@@ -156,7 +157,7 @@ function ItemPedido({
                       data-bs-dismiss="modal"
                       onClick={() => manejarPagoElectronico()}
                     >
-                      Realizar Pago Electrónico
+                      Realizar Pago
                     </button>
                   )}
                 </div>

@@ -55,6 +55,7 @@ function OrdersView({ user }) {
         items={doc.data()["items"]}
         total={doc.data()["total"]}
         pagoElectronico={doc.data()["pago_electronico"]}
+        pagoEfectivo={doc.data()["pago_efectivo"]}
       />
     );
   });

@@ -1,4 +1,7 @@
-import React, { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+
+import firebaseApp from "../../firebase/credenciales";
 import {
   getFirestore,
   collection,
@@ -8,20 +11,14 @@ import {
   Timestamp,
 } from "firebase/firestore";
 
-import firebaseApp from "../../firebase/credenciales";
-import BtnMenu from "../../components/BtnMenu";
-import ItemPedido from "../../components/ItemPedido";
-import GraficoValoraciones from "../../components/GraficoValoraciones";
+import ItemPedidoCajero from "../../components/ItemPedidoCajero";
 
-function RatingsView({ user }) {
-  const valoraciones = require("../../assets/valoraciones.json");
-
+function OrdersView({ user }) {
   const [pedidos, setPedidos] = useState([]);
-  const [tipoValor, setTipoValor] = useState("5");
 
   const fechaBase = () => {
     let hoy = new Date();
-    let treintaDias = 1000 * 60 * 60 * 24 * 30;
+    let treintaDias = 1000 * 60 * 60 * 24 * 1;
     let resta = hoy.getTime() - treintaDias;
     return new Date(resta);
   };
@@ -32,7 +29,6 @@ function RatingsView({ user }) {
     async function getPedidos() {
       let consulta = query(
         collection(db, "pedidos"),
-        where("valoracion", "==", tipoValor),
         where("fecha", ">=", Timestamp.fromDate(fechaBase()))
       );
       try {
@@ -43,47 +39,31 @@ function RatingsView({ user }) {
       }
     }
     getPedidos();
-  }, [tipoValor]);
+  }, [pedidos]);
 
   const items = [];
 
   pedidos.forEach((doc) => {
     items.push(
-      <ItemPedido
+      <ItemPedidoCajero
         key={doc.id}
         identificador={doc.id}
         fechaString={doc.data()["fecha_string"]}
         hora={doc.data()["hora"]}
         estado={doc.data()["estado"]}
+        mesa={doc.data()["mesa"]}
         items={doc.data()["items"]}
         total={doc.data()["total"]}
-        calificacion={doc.data()["valoracion"]}
-        observacion={doc.data()["observaciones"]}
         pagoElectronico={doc.data()["pago_electronico"]}
         pagoEfectivo={doc.data()["pago_efectivo"]}
-        user={user}
       />
     );
   });
 
   return (
     <div className="container">
-      <h1>Valoración del Servicio</h1>
-      <GraficoValoraciones fechaBase={fechaBase}></GraficoValoraciones>
-      <hr></hr>
-      <div className="btn-group" role="group">
-        {valoraciones.map((valoracion) => (
-          <BtnMenu
-            key={valoracion.id}
-            tipo={valoracion.tipo}
-            titulo={valoracion.titulo}
-            setTipoProducto={setTipoValor}
-            valorDefecto={"5"}
-          ></BtnMenu>
-        ))}
-      </div>
-      <hr></hr>
-      <h4>{"Pedidos con valoración = " + tipoValor}</h4>
+      <h1 style={{ color: "#491632" }}>Pedidos</h1>
+      <br></br>
       <div className="table-responsive">
         <table className="table table-borderless">
           <thead>
@@ -91,14 +71,22 @@ function RatingsView({ user }) {
               <th scope="col">Fecha</th>
               <th scope="col">Hora</th>
               <th scope="col">Detalle</th>
-              <th scope="col">Valoración</th>
+              <th scope="col">Mesa</th>
+              <th scope="col">Entregado</th>
             </tr>
           </thead>
           <tbody>{items}</tbody>
         </table>
       </div>
+      <br></br>
+      <div className="d-grid d-md-flex justify-content-md-end">
+        <Link className="btn btn-danger rounded-pill" to="/productos">
+          Ir al Menú
+        </Link>
+      </div>
+      <br></br>
     </div>
   );
 }
 
-export default RatingsView;
+export default OrdersView;

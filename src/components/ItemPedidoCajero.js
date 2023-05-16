@@ -5,7 +5,7 @@ import Swal from "sweetalert2";
 import firebaseApp from "../firebase/credenciales";
 import Detalle from "./Detalle";
 
-function ItemPedidoMesero({
+function ItemPedidoCajero({
   identificador,
   fechaString,
   hora,
@@ -46,6 +46,24 @@ function ItemPedidoMesero({
       }
     });
   }
+
+  const actualizarPagoEfectivo = async () => {
+    try {
+      const docRef = doc(db, "pedidos", identificador);
+      await updateDoc(docRef, {
+        pago_efectivo: true,
+      });
+      Swal.fire({
+        title: "Pago Realizado",
+        text: "¡Se ha realizado el pago!",
+        icon: "success",
+        confirmButtonColor: "#491632",
+        iconColor: "#dc3545",
+      });
+    } catch (error) {
+      Swal.fire("Error", error.message.slice(10), "error");
+    }
+  };
 
   const marcarEntregado = async () => {
     try {
@@ -144,8 +162,12 @@ function ItemPedidoMesero({
                       Pagado
                     </button>
                   ) : (
-                    <button disabled type="button" className="btn btn-warning">
-                      Sin pago
+                    <button
+                      type="button"
+                      className="btn btn-warning"
+                      onClick={() => actualizarPagoEfectivo()}
+                    >
+                      Realizar pago
                     </button>
                   )}
                 </div>
@@ -173,4 +195,4 @@ function ItemPedidoMesero({
   );
 }
 
-export default ItemPedidoMesero;
+export default ItemPedidoCajero;
