@@ -19,6 +19,7 @@ function ConfirmarPedidoMesero({ user }) {
   const navigate = useNavigate();
 
   const [mesa, setMesa] = useState("1");
+  const [propina, setPropina] = useState(0);
   const hoy = new Date();
 
   function showTime() {
@@ -44,8 +45,10 @@ function ConfirmarPedidoMesero({ user }) {
       cantidad: product.cantidad,
       nota: product.nota,
     })),
-    total: precioTotal(),
+    total: precioTotal() + parseFloat(propina),
     pago_electronico: false,
+    pago_efectivo: false,
+    propina: parseFloat(propina),
   };
 
   async function submitHandler(evento) {
@@ -99,13 +102,13 @@ function ConfirmarPedidoMesero({ user }) {
       <form onSubmit={submitHandler}>
         <div className="row">
           <div
-            className="form-group col-md-6 mb-3"
+            className="form-group col-md-4 mb-3"
             style={{ background: "#FEEFEC" }}
           >
             <h4>Para confirmar el pedido ingrese el número de la mesa.</h4>
           </div>
 
-          <div className="form-group col-md-6 mb-3">
+          <div className="form-group col-md-4 mb-3">
             <label htmlFor="mesa" className="form-label">
               Número de Mesa
             </label>
@@ -122,6 +125,27 @@ function ConfirmarPedidoMesero({ user }) {
                   {"Mesa " + mesa}
                 </option>
               ))}
+            </select>
+          </div>
+
+          <div className="form-group col-md-4 mb-3">
+            <label htmlFor="propina" className="form-label">
+              Propina
+            </label>
+            <select
+              className="form-control"
+              id="propina"
+              value={propina}
+              onChange={(evento) => {
+                setPropina(evento.target.value);
+              }}
+            >
+              <option key={0} value={0}>
+                0%
+              </option>
+              <option key={1} value={precioTotal() * 0.1}>
+                10%
+              </option>
             </select>
           </div>
 

@@ -31,10 +31,11 @@ function CartProvider({ children }) {
   };
 
   const precioTotal = () => {
-    return cart.reduce(
-      (acumulador, actual) => acumulador + actual.cantidad * actual.precio,
-      0
-    );
+    let acumulador = 0;
+    cart.forEach((element) => {
+      acumulador += element.cantidad * element.precio;
+    });
+    return acumulador;
   };
 
   const isInPedido = (id) =>

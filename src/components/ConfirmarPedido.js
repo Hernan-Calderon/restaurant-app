@@ -52,10 +52,10 @@ function ConfirmarPedido({ user }) {
       cantidad: product.cantidad,
       nota: product.nota,
     })),
-    total: precioTotal() + propina,
+    total: precioTotal() + parseFloat(propina),
     pago_electronico: false,
     pago_efectivo: false,
-    propina: propina,
+    propina: parseFloat(propina),
   };
 
   async function submitHandler(evento) {
@@ -121,7 +121,7 @@ function ConfirmarPedido({ user }) {
 
       <form onSubmit={submitHandler}>
         <div className="row">
-          <div className="form-group col-md-6 mb-3">
+          <div className="form-group col-md-4 mb-3">
             <label htmlFor="confirnmar" className="form-label">
               Código Restaurante:
             </label>
@@ -138,7 +138,7 @@ function ConfirmarPedido({ user }) {
             />
           </div>
 
-          <div className="form-group col-md-6 mb-3">
+          <div className="form-group col-md-4 mb-3">
             <label htmlFor="mesa" className="form-label">
               Número de Mesa
             </label>
@@ -158,7 +158,7 @@ function ConfirmarPedido({ user }) {
             </select>
           </div>
 
-          <div className="form-group col-md-6 mb-3">
+          <div className="form-group col-md-4 mb-3">
             <label htmlFor="propina" className="form-label">
               Propina
             </label>
