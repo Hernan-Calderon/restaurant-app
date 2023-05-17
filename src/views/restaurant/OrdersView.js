@@ -49,6 +49,7 @@ function OrdersView({ user }) {
         estado={doc.data()["estado"]}
         items={doc.data()["items"]}
         total={doc.data()["total"]}
+        propina={doc.data()["propina"]}
         calificacion={doc.data()["valoracion"]}
         observacion={doc.data()["observaciones"]}
         pagoElectronico={doc.data()["pago_electronico"]}

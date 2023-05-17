@@ -54,6 +54,7 @@ function OrdersView({ user }) {
         mesa={doc.data()["mesa"]}
         items={doc.data()["items"]}
         total={doc.data()["total"]}
+        propina={doc.data()["propina"]}
         pagoElectronico={doc.data()["pago_electronico"]}
         pagoEfectivo={doc.data()["pago_efectivo"]}
       />

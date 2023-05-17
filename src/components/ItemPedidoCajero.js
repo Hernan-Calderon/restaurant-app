@@ -13,6 +13,7 @@ function ItemPedidoCajero({
   mesa,
   items,
   total,
+  propina,
   pagoElectronico,
   pagoEfectivo,
 }) {
@@ -145,6 +146,7 @@ function ItemPedidoCajero({
                     </thead>
                     <tbody>{productos}</tbody>
                   </table>
+                  <h5>Propina: $ {propina}</h5>
                   <h5>Total: $ {total}</h5>
                 </div>
                 <hr></hr>

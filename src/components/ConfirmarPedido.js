@@ -20,6 +20,7 @@ function ConfirmarPedido({ user }) {
 
   const [codigo, setCodigo] = useState("");
   const [mesa, setMesa] = useState("1");
+  const [propina, setPropina] = useState(0);
   const hoy = new Date();
 
   function showTime() {
@@ -32,6 +33,7 @@ function ConfirmarPedido({ user }) {
   function cleanForm() {
     setCodigo("");
     setMesa("1");
+    setPropina(0);
   }
 
   const pedido = {
@@ -50,9 +52,10 @@ function ConfirmarPedido({ user }) {
       cantidad: product.cantidad,
       nota: product.nota,
     })),
-    total: precioTotal(),
+    total: precioTotal() + propina,
     pago_electronico: false,
     pago_efectivo: false,
+    propina: propina,
   };
 
   async function submitHandler(evento) {
@@ -152,6 +155,27 @@ function ConfirmarPedido({ user }) {
                   {"Mesa " + mesa}
                 </option>
               ))}
+            </select>
+          </div>
+
+          <div className="form-group col-md-6 mb-3">
+            <label htmlFor="propina" className="form-label">
+              Propina
+            </label>
+            <select
+              className="form-control"
+              id="propina"
+              value={propina}
+              onChange={(evento) => {
+                setPropina(evento.target.value);
+              }}
+            >
+              <option key={0} value={0}>
+                0%
+              </option>
+              <option key={1} value={precioTotal() * 0.1}>
+                10%
+              </option>
             </select>
           </div>
 

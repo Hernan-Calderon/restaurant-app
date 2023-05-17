@@ -15,6 +15,7 @@ function ItemPedido({
   estado,
   items,
   total,
+  propina,
   calificacion,
   observacion,
   pagoElectronico,
@@ -133,6 +134,7 @@ function ItemPedido({
                     </thead>
                     <tbody>{productos}</tbody>
                   </table>
+                  <h5>Propina: $ {propina}</h5>
                   <h5>Total: $ {total}</h5>
                 </div>
                 <hr></hr>
