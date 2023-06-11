@@ -30,6 +30,11 @@ function RegisterView({ user }) {
     evento.preventDefault();
     const email = evento.target.elements.email.value;
     const password = evento.target.elements.password.value;
+    //const rol = "mesero";
+    //const rol = "cajero";
+    //const rol = "codigo";
+    //const rol = "admin";
+    //const rol = "cocina";
     const rol = "cliente";
     try {
       await registrar(email, password, rol);
