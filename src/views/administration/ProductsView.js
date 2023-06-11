@@ -52,6 +52,7 @@ function ProductsView({ user }) {
         precio={doc.data()["precio"]}
         tipo={doc.data()["tipo"]}
         urlImagen={doc.data()["url_imagen"]}
+        ingredientes={doc.data()["ingredientes"]}
         user={user}
         getDocumentos={getDocumentos}
       />

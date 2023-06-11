@@ -48,6 +48,7 @@ function CrearProducto({ tipo, getDocumentos }) {
         descripcion: descripProducto,
         tipo: tipoProducto,
         url_imagen: carga[0],
+        ingredientes: [],
       });
       Swal.fire("Creado", "El Producto se ha creado con éxito.", "success");
       if (tipo === tipoProducto) {

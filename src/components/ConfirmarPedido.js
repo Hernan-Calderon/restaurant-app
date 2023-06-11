@@ -6,6 +6,8 @@ import {
   collection,
   addDoc,
   Timestamp,
+  doc,
+  getDoc,
 } from "firebase/firestore";
 
 import firebaseApp from "../firebase/credenciales";
@@ -49,6 +51,7 @@ function ConfirmarPedido({ user }) {
       id: product.id,
       nombre: product.nombre,
       precio: product.precio,
+      ingredientes: product.ingredientes,
       cantidad: product.cantidad,
       nota: product.nota,
     })),
@@ -60,9 +63,11 @@ function ConfirmarPedido({ user }) {
 
   async function submitHandler(evento) {
     evento.preventDefault();
-    if (codigo === "1234") {
-      const coleccion = collection(db, "pedidos");
-      try {
+    const docRef = doc(db, "codigo/codigo");
+    const coleccion = collection(db, "pedidos");
+    try {
+      const docSnap = await getDoc(docRef);
+      if (codigo === docSnap.data()["codigo"].toString()) {
         await addDoc(coleccion, pedido);
         cleanForm();
         Swal.fire({
@@ -74,11 +79,11 @@ function ConfirmarPedido({ user }) {
         });
         cleanCart();
         navigate("/pedidos");
-      } catch (error) {
-        Swal.fire("Error", error.message.slice(10), "error");
+      } else {
+        Swal.fire("Advertencia", "¡Código inválido!", "warning");
       }
-    } else {
-      Swal.fire("Advertencia", "¡Código inválido!", "warning");
+    } catch (error) {
+      Swal.fire("Error", error.message.slice(10), "error");
     }
   }
 

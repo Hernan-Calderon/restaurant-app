@@ -2,6 +2,7 @@
 /*@import url("./reset.css");*/
 
 /* AÑADE AQUÍ TUS ESTILOS */
+@import url("https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap");
 
 .sesion {
   color: white;
@@ -10,4 +11,38 @@
 .sesion:hover {
   background-color: #ea868f;
   color: #dc3545;
+}
+
+.code_titulo {
+  font-family: "Orbitron", sans-serif;
+  font-size: 3em;
+  font-weight: 300;
+  color: #dc3545;
+  text-align: center;
+}
+
+.code_font {
+  font-family: "Orbitron", sans-serif;
+  font-size: 10em;
+  font-weight: 600;
+  color: #dc3545;
+  text-align: center;
+}
+
+@media screen and (max-width: 35em) {
+  .code_titulo {
+    font-family: "Orbitron", sans-serif;
+    font-size: 2em;
+    font-weight: 200;
+    color: #dc3545;
+    text-align: center;
+  }
+
+  .code_font {
+    font-family: "Orbitron", sans-serif;
+    font-size: 5em;
+    font-weight: 300;
+    color: #dc3545;
+    text-align: center;
+  }
 }

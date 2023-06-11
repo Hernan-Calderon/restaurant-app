@@ -153,9 +153,9 @@ function WaiterView({ user }) {
             <div className="col-12 col-sm-6 col-lg-3 mb-4">
               <p className="h5">Contacto</p>
               <br></br>
+              <p className="mb-0">Mall de Comidas</p>
+              <p className="mb-0">Local: 301</p>
               <p className="mb-0">Teléfono: 789456123</p>
-              <p className="mb-0">Centro Comercial Demo Plaza</p>
-              <p className="mb-0">Local: 324</p>
             </div>
           </div>
         </div>

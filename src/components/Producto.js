@@ -1,5 +1,5 @@
 import firebaseApp from "../firebase/credenciales";
-import { getFirestore, doc, getDoc, deleteDoc } from "firebase/firestore";
+import { getFirestore, doc, deleteDoc } from "firebase/firestore";
 import { getStorage, ref, deleteObject } from "firebase/storage";
 import Swal from "sweetalert2";
 
@@ -15,17 +15,12 @@ function Producto({
   precio,
   tipo,
   urlImagen,
+  ingredientes,
   user,
   getDocumentos,
 }) {
   const { addProduct } = useCartContext();
   const db = getFirestore(firebaseApp);
-
-  async function obtenerProducto(identificador) {
-    const docRef = doc(db, "productos", identificador);
-    const docSnap = await getDoc(docRef);
-    return docSnap;
-  }
 
   function incrementar(id) {
     let valor = parseInt(document.getElementById(id).value);
@@ -71,29 +66,21 @@ function Producto({
   };
 
   const agregarProducto = async (identificador) => {
-    try {
-      const docSnap = await obtenerProducto(identificador);
-      if (docSnap.exists()) {
-        const producto = {
-          id: identificador,
-          nombre: docSnap.data().nombre_producto,
-          precio: docSnap.data().precio,
-        };
-        const cantidad = parseInt(document.getElementById(identificador).value);
-        addProduct(producto, cantidad);
-        Swal.fire({
-          title: "Agregado al Carrito",
-          text: "¡Se ha agregado el producto al carrito de compras!",
-          icon: "success",
-          confirmButtonColor: "#491632",
-          iconColor: "#dc3545",
-        });
-      } else {
-        Swal.fire("Error", "No such document!", "error");
-      }
-    } catch (error) {
-      Swal.fire("Error", error.message.slice(10), "error");
-    }
+    const producto = {
+      id: identificador,
+      nombre: nombre,
+      precio: precio,
+      ingredientes: ingredientes,
+    };
+    const cantidad = parseInt(document.getElementById(identificador).value);
+    addProduct(producto, cantidad);
+    Swal.fire({
+      title: "Agregado al Carrito",
+      text: "¡Se ha agregado el producto al carrito de compras!",
+      icon: "success",
+      confirmButtonColor: "#491632",
+      iconColor: "#dc3545",
+    });
   };
 
   return (
@@ -134,6 +121,7 @@ function Producto({
                     tipo={tipo}
                     urlImg={urlImagen}
                     getDocumentos={getDocumentos}
+                    ingredientes={ingredientes}
                   ></ActualizarProducto>
                 </div>
               </div>

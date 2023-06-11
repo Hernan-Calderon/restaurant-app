@@ -42,6 +42,7 @@ function ConfirmarPedidoMesero({ user }) {
       id: product.id,
       nombre: product.nombre,
       precio: product.precio,
+      ingredientes: product.ingredientes,
       cantidad: product.cantidad,
       nota: product.nota,
     })),

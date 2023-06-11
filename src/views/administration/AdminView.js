@@ -8,6 +8,10 @@ import { getAuth, signOut } from "firebase/auth";
 import WelcomeView from "./WelcomeView";
 import ProductsView from "./ProductsView";
 import RatingsView from "./RatingsView";
+import InventoryView from "./InventoryView";
+import InventoryEntryView from "./InventoryEntryView";
+import InventoryOutputView from "./InventoryOutputView";
+import IngredientsView from "./IngredientsView";
 
 import Titulo from "../../components/Titulo";
 
@@ -58,19 +62,36 @@ function AdminView({ user }) {
                     Inicio
                   </NavLink>
                 </li>
-
                 <li className="nav-item">
                   <NavLink className="nav-link" to="productos">
                     Productos
                   </NavLink>
                 </li>
-
+                <li className="nav-item">
+                  <NavLink className="nav-link" to="ingredientes">
+                    Ingredientes
+                  </NavLink>
+                </li>
                 <li className="nav-item">
                   <NavLink className="nav-link" to="valoraciones">
                     Valoraciones
                   </NavLink>
                 </li>
-
+                <li className="nav-item">
+                  <NavLink className="nav-link" to="inventario">
+                    Inventario
+                  </NavLink>
+                </li>
+                <li className="nav-item">
+                  <NavLink className="nav-link" to="entradas">
+                    Entradas
+                  </NavLink>
+                </li>
+                <li className="nav-item">
+                  <NavLink className="nav-link" to="salidas">
+                    Salidas
+                  </NavLink>
+                </li>
                 <li className="nav-item m-1">
                   <NavLink
                     className="btn btn-sm sesion"
@@ -95,6 +116,10 @@ function AdminView({ user }) {
         <Route path="inicio" element={<WelcomeView user={user} />} />
         <Route path="productos" element={<ProductsView user={user} />} />
         <Route path="valoraciones" element={<RatingsView user={user} />} />
+        <Route path="inventario" element={<InventoryView />} />
+        <Route path="entradas" element={<InventoryEntryView />} />
+        <Route path="salidas" element={<InventoryOutputView />} />
+        <Route path="ingredientes" element={<IngredientsView />} />
       </Routes>
 
       <footer className="bg-danger text-white">
@@ -118,8 +143,28 @@ function AdminView({ user }) {
                 </Link>
               </p>
               <p className="mb-0">
+                <Link className="nav-link" to="ingredientes">
+                  Ingredientes
+                </Link>
+              </p>
+              <p className="mb-0">
                 <Link className="nav-link" to="valoraciones">
                   Valoraciones
+                </Link>
+              </p>
+              <p className="mb-0">
+                <Link className="nav-link" to="inventario">
+                  Inventario
+                </Link>
+              </p>
+              <p className="mb-0">
+                <Link className="nav-link" to="entradas">
+                  Entradas
+                </Link>
+              </p>
+              <p className="mb-0">
+                <Link className="nav-link" to="salidas">
+                  Salidas
                 </Link>
               </p>
             </div>
@@ -127,8 +172,8 @@ function AdminView({ user }) {
             <div className="col-12 col-sm-6 col-lg-3 mb-4">
               <p className="h5">Contacto</p>
               <br></br>
-              <p className="mb-0">Centro Comercial Demo Plaza</p>
-              <p className="mb-0">Local: 324</p>
+              <p className="mb-0">Mall de Comidas</p>
+              <p className="mb-0">Local: 301</p>
               <p className="mb-0">Teléfono: 789456123</p>
             </div>
           </div>

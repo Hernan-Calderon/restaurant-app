@@ -1,5 +1,5 @@
 import React from "react";
-import { getFirestore, doc, updateDoc } from "firebase/firestore";
+import { getFirestore, doc, updateDoc, getDoc } from "firebase/firestore";
 import { v4 } from "uuid";
 import Swal from "sweetalert2";
 
@@ -49,6 +49,20 @@ function ItemPedidoCocina({
     try {
       const docuRef = doc(db, "pedidos/" + identificador);
       await updateDoc(docuRef, { estado: "Listo" });
+
+      for (let i = 0; i < items.length; i++) {
+        let producto = items[i];
+        for (let ingrediente of producto.ingredientes) {
+          let docr = doc(db, "inventario/" + ingrediente.id_ingrediente);
+          let docSnap = await getDoc(docr);
+          let cantidad = docSnap.data()["cantidad"];
+          await updateDoc(docr, {
+            cantidad:
+              cantidad - producto.cantidad * parseInt(ingrediente.cantidad),
+          });
+        }
+      }
+
       Swal.fire("Listo", "El pedido ha quedado Listo.", "success");
     } catch (error) {
       Swal.fire("Error", error.message.slice(10), "error");

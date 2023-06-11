@@ -21,6 +21,7 @@ function ActualizarProducto({
   tipo,
   urlImg,
   getDocumentos,
+  ingredientes,
 }) {
   const db = getFirestore(firebaseApp);
   const listaProductos = require("../assets/tipo-producto.json");
@@ -67,6 +68,7 @@ function ActualizarProducto({
         descripcion: descripProducto,
         tipo: tipoProducto,
         url_imagen: urlImagen,
+        ingredientes: ingredientes,
       });
       Swal.fire(
         "Actualizado",

@@ -1,12 +1,13 @@
-import { BrowserRouter, Route, Routes, NavLink, Link } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { BrowserRouter, NavLink, Link } from "react-router-dom";
 
 import "../../styles/global.css";
 
 import firebaseApp from "../../firebase/credenciales";
+import { doc, getFirestore, getDoc } from "firebase/firestore";
 import { getAuth, signOut } from "firebase/auth";
 
-import OrdersView from "./OrdersView";
-import IngredientsView from "./IngredientsView";
+import WelcomeView from "./WelcomeView";
 
 import Titulo from "../../components/Titulo";
 
@@ -16,14 +17,33 @@ import logoRestaurante from "../../images/logo_restaurante.png";
 
 const auth = getAuth(firebaseApp);
 
-function KitchenView({ user }) {
+function CodeView({ user }) {
+  const db = getFirestore(firebaseApp);
+  const [codigo, setCodigo] = useState(0);
+
+  useEffect(() => {
+    async function getDocumentos() {
+      const docRef = doc(db, "codigo/codigo");
+      try {
+        const docSnap = await getDoc(docRef);
+        setCodigo(docSnap.data()["codigo"]);
+      } catch (error) {
+        console.log(error.message);
+      }
+    }
+    getDocumentos();
+  }, [db]);
+
   return (
     <BrowserRouter>
       <nav className="navbar navbar-expand-lg navbar-dark bg-danger">
         <div className="container-fluid">
-          <span className="navbar-brand">
+          <a
+            className="navbar-brand"
+            href="https://tulopides-mall-demoplaza.netlify.app/"
+          >
             <img src={logo} alt="logo tu lo pides" width="180" height="48" />
-          </span>
+          </a>
           <button
             className="navbar-toggler"
             type="button"
@@ -41,7 +61,7 @@ function KitchenView({ user }) {
           >
             <div className="offcanvas-header">
               <h5 className="offcanvas-title" id="offcanvasNavbarLabel">
-                Restaurant
+                Restaurante 1
               </h5>
               <button
                 type="button"
@@ -52,16 +72,6 @@ function KitchenView({ user }) {
             </div>
             <div className="offcanvas-body">
               <ul className="navbar-nav justify-content-end flex-grow-1 pe-3">
-                <li className="nav-item">
-                  <NavLink className="nav-link" to="inicio">
-                    Pedidos
-                  </NavLink>
-                </li>
-                <li className="nav-item">
-                  <NavLink className="nav-link" to="ingredientes">
-                    Ingredientes
-                  </NavLink>
-                </li>
                 <li className="nav-item m-1">
                   <NavLink
                     className="btn btn-sm sesion"
@@ -80,39 +90,22 @@ function KitchenView({ user }) {
       <Link to="inicio">
         <Titulo imagenTitulo={logoRestaurante} />
       </Link>
+
+      {codigo !== 0 ? <WelcomeView code={codigo} /> : <></>}
+
       <br></br>
-      <Routes>
-        <Route path="/" element={<OrdersView user={user} />} />
-        <Route path="inicio" element={<OrdersView user={user} />} />
-        <Route path="ingredientes" element={<IngredientsView />} />
-      </Routes>
-      <br></br>
+
       <footer className="bg-danger text-white">
         <div className="container d-flex justify-content-center pt-4">
           <div className="row">
-            <div className="col-12 col-sm-6 col-lg-3 mb-4">
+            <div className="col-sm-6 ">
               <img src={logo_1} className="img-fluid" alt="Logo restaurante" />
             </div>
-            <div className="col-12 col-sm-6 col-lg-3"></div>
-            <div className="col-12 col-sm-6 col-lg-3 mb-4">
-              <p className="h5">Secciones</p>
-              <br></br>
-              <p className="mb-0">
-                <Link className="nav-link" to="inicio">
-                  Pedidos
-                </Link>
-              </p>
-              <p className="mb-0">
-                <Link className="nav-link" to="ingredientes">
-                  Ingredientes
-                </Link>
-              </p>
-            </div>
 
-            <div className="col-12 col-sm-6 col-lg-3 mb-4">
+            <div className="col-sm-6 ">
               <p className="h5">Contacto</p>
               <br></br>
-              <p className="mb-0">Mall de Comidas</p>
+              <p className="mb-0">Mall de comidas</p>
               <p className="mb-0">Local: 301</p>
               <p className="mb-0">Teléfono: 789456123</p>
             </div>
@@ -128,4 +121,4 @@ function KitchenView({ user }) {
   );
 }
 
-export default KitchenView;
+export default CodeView;
