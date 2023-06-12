@@ -74,6 +74,10 @@ function WelcomeView({ user }) {
         </button>
       </div>
       <br></br>
+      <p>
+        This cards has been designed using images from{" "}
+        <strong>Flaticon.com</strong>
+      </p>
       <Cards user={user} />
       <br></br>
     </div>

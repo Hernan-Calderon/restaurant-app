@@ -13,6 +13,11 @@ function WelcomeView({ user }) {
     <div className="container">
       <h1>Administración Restaurante</h1>
       <p>Bienvenid@ {user.email}</p>
+      <br></br>
+      <p>
+        This cards has been designed using images from{" "}
+        <strong>Flaticon.com</strong>
+      </p>
       <div className="row">
         <div className="col-12 col-md-4 col-xl-3 mb-3">
           <div className="card">

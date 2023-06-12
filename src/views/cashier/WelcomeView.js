@@ -8,6 +8,10 @@ function WelcomeView({ user }) {
       <h1>Cajero Restaurante</h1>
       <p>Bienvenid@ {user.email}</p>
       <br></br>
+      <p>
+        This cards has been designed using images from{" "}
+        <strong>Flaticon.com</strong>
+      </p>
       <Cards user={user} />
       <br></br>
     </div>
