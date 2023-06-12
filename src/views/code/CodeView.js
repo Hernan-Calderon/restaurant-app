@@ -40,7 +40,7 @@ function CodeView({ user }) {
         <div className="container-fluid">
           <a
             className="navbar-brand"
-            href="https://tulopides-mall-demoplaza.netlify.app/"
+            href="https://tulopides-mall.netlify.app/"
           >
             <img src={logo} alt="logo tu lo pides" width="180" height="48" />
           </a>

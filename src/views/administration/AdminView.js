@@ -26,9 +26,12 @@ function AdminView({ user }) {
     <BrowserRouter>
       <nav className="navbar navbar-expand-lg navbar-dark bg-danger">
         <div className="container-fluid">
-          <span className="navbar-brand">
+          <a
+            className="navbar-brand"
+            href="https://tulopides-mall.netlify.app/"
+          >
             <img src={logo} alt="logo tu lo pides" width="180" height="48" />
-          </span>
+          </a>
           <button
             className="navbar-toggler"
             type="button"
@@ -46,7 +49,7 @@ function AdminView({ user }) {
           >
             <div className="offcanvas-header">
               <h5 className="offcanvas-title" id="offcanvasNavbarLabel">
-                Restaurant
+                Restaurante 1
               </h5>
               <button
                 type="button"
