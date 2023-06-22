@@ -30,7 +30,7 @@ function ItemIngredientesCocina({ identificador, nombre_producto }) {
     listaIngredientes.push(
       <ItemIngredienteCocina
         key={ingrediente.id_ingrediente}
-        descripcion={ingrediente.descripcion}
+        identificador={ingrediente.id_ingrediente}
         cantidad={ingrediente.cantidad}
       />
     );
@@ -81,6 +81,7 @@ function ItemIngredientesCocina({ identificador, nombre_producto }) {
                       >
                         <th scope="col">Ingrediente</th>
                         <th scope="col">Cantidad</th>
+                        <th scope="col">Unidades</th>
                       </tr>
                     </thead>
                     <tbody>{listaIngredientes}</tbody>

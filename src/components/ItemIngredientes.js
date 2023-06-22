@@ -28,10 +28,6 @@ function ItemIngredientes({
   }
 
   function generarIngredientes() {
-    let seleccionado = inventario.filter(
-      (item) => item.id_item === idIngrediente
-    );
-    let descripcionIngrediente = seleccionado[0].descripcion;
     if (
       ingredientes.find(
         (ingrediente) => ingrediente.id_ingrediente === idIngrediente
@@ -41,7 +37,6 @@ function ItemIngredientes({
         return ingrediente.id_ingrediente === idIngrediente
           ? {
               id_ingrediente: idIngrediente,
-              descripcion: descripcionIngrediente,
               cantidad: cantidadIngrediente,
             }
           : ingrediente;
@@ -51,7 +46,6 @@ function ItemIngredientes({
       ...ingredientes,
       {
         id_ingrediente: idIngrediente,
-        descripcion: descripcionIngrediente,
         cantidad: cantidadIngrediente,
       },
     ];
@@ -127,7 +121,6 @@ function ItemIngredientes({
       <ItemIngrediente
         key={ingrediente.id_ingrediente}
         identificador={ingrediente.id_ingrediente}
-        descripcion={ingrediente.descripcion}
         cantidad={ingrediente.cantidad}
         eliminarIngrediente={eliminarIngrediente}
       />
